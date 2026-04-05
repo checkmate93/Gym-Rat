@@ -1,16 +1,19 @@
+# ΕΝΗΜΕΡΩΜΕΝΗ ΕΦΑΡΜΟΓΗ 🔥 - ΠΙΟ ΟΛΟΚΛΗΡΩΜΕΝΗ!
+
+```html
 <!DOCTYPE html>
 <html lang="el">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>💪 Gym Tracker</title>
+    <title>💪 Gym Tracker PRO</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background: #f5f5f5;
-            padding-bottom: 80px;
+            padding-bottom: 100px;
             -webkit-user-select: none;
             user-select: none;
         }
@@ -18,27 +21,27 @@
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 20px;
+            padding: 15px 20px;
             position: sticky;
             top: 0;
             z-index: 100;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .header h1 { font-size: 28px; margin-bottom: 5px; }
-        .header p { opacity: 0.9; font-size: 14px; }
+        .header h1 { font-size: 26px; margin-bottom: 3px; }
+        .header p { opacity: 0.9; font-size: 13px; }
 
         /* Stopwatch */
         .stopwatch {
             position: fixed;
-            top: 90px;
+            top: 75px;
             right: 15px;
             background: #000;
             color: #0f0;
-            padding: 12px 18px;
+            padding: 10px 16px;
             border-radius: 12px;
             font-family: 'Courier New', monospace;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: bold;
             z-index: 99;
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -51,10 +54,10 @@
             background: #0f0;
             color: #000;
             border: none;
-            padding: 6px 12px;
+            padding: 5px 10px;
             border-radius: 6px;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 11px;
         }
 
         .stopwatch.running button { background: #f00; color: #fff; }
@@ -63,21 +66,22 @@
         .muscle-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 10px;
             padding: 15px;
         }
 
         .muscle-btn {
             background: white;
-            border: 3px solid #e0e0e0;
-            padding: 20px;
-            border-radius: 16px;
-            font-size: 18px;
+            border: 2px solid #e0e0e0;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 16px;
             font-weight: bold;
             color: #333;
             cursor: pointer;
             transition: all 0.2s;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            text-align: center;
         }
 
         .muscle-btn:active { transform: scale(0.95); }
@@ -106,19 +110,27 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .exercise-name {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: bold;
             color: #333;
+            flex: 1;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 6px;
         }
 
         .lock-btn {
             background: #e0e0e0;
             border: none;
-            padding: 6px 12px;
+            padding: 6px 10px;
             border-radius: 20px;
             font-size: 11px;
             font-weight: bold;
@@ -131,27 +143,41 @@
             color: white;
         }
 
+        .add-set-btn, .remove-set-btn {
+            padding: 5px 8px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .add-set-btn { background: #667eea; color: white; }
+        .remove-set-btn { background: #ff6b6b; color: white; }
+
+        /* Sets Table */
         .sets-table {
             width: 100%;
+            border-collapse: collapse;
         }
 
         .sets-table th {
-            font-size: 12px;
+            font-size: 11px;
             color: #999;
-            padding: 8px 4px;
+            padding: 6px 4px;
             font-weight: 600;
+            text-align: left;
         }
 
         .sets-table td {
-            padding: 6px 4px;
+            padding: 4px;
         }
 
         .sets-table input {
             width: 100%;
-            padding: 12px 8px;
+            padding: 10px 6px;
             border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 18px;
+            border-radius: 8px;
+            font-size: 16px;
             font-weight: bold;
             text-align: center;
             background: #fafafa;
@@ -163,6 +189,60 @@
             background: white;
         }
 
+        .delete-row-btn {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Custom Exercise */
+        .add-exercise-section {
+            background: white;
+            border-radius: 14px;
+            padding: 12px;
+            margin-top: 10px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+        }
+
+        .add-exercise-section h4 {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #667eea;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .input-row input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .input-row button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .edit-mode .set-input {
+            border-color: #4CAF50;
+            background: #f0fff0;
+        }
+
         /* Bottom Nav */
         .bottom-nav {
             position: fixed;
@@ -172,7 +252,7 @@
             background: white;
             display: flex;
             justify-content: space-around;
-            padding: 12px;
+            padding: 10px 0;
             border-top: 1px solid #e0e0e0;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
         }
@@ -182,7 +262,7 @@
             padding: 12px;
             border: none;
             background: none;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             color: #999;
             cursor: pointer;
@@ -192,21 +272,21 @@
 
         .nav-btn.active { color: #667eea; background: #f0f0ff; }
 
+        /* Save Button */
         .save-btn {
             background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
             color: white;
             border: none;
-            padding: 15px 30px;
+            padding: 14px 30px;
             border-radius: 12px;
             font-size: 16px;
             font-weight: bold;
-            margin: 15px;
+            margin: 10px 15px 20px;
             width: calc(100% - 30px);
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(56, 239, 125, 0.3);
+            display: none;
         }
-
-        .save-btn:active { transform: scale(0.98); }
 
         /* History */
         .history-item {
@@ -215,7 +295,10 @@
             margin: 10px 15px;
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            cursor: pointer;
         }
+
+        .history-item:active { transform: scale(0.98); }
 
         .history-date {
             font-weight: bold;
@@ -223,18 +306,66 @@
             margin-bottom: 5px;
         }
 
-        .hidden { display: none; }
+        .hidden { display: none !important; }
 
-        .add-exercise-btn {
-            background: #fff;
-            border: 2px dashed #ccc;
-            padding: 12px;
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
             width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal h2 { margin-bottom: 15px; color: #333; }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .modal-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
             border-radius: 10px;
-            margin-top: 10px;
             font-weight: bold;
-            color: #999;
             cursor: pointer;
+        }
+        
+        .cancel-btn { background: #ccc; color: #333; }
+        .confirm-btn { background: #4CAF50; color: white; }
+        .delete-btn { background: #ff6b6b; color: white; }
+
+        /* Stats Badge */
+        .stats-badge {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 8px;
         }
     </style>
 </head>
@@ -243,12 +374,12 @@
     <!-- Header -->
     <div class="header">
         <h1>💪 Gym Tracker</h1>
-        <p id="header-subtitle">Επίλεξε μυϊκές ομάδες</p>
+        <p id="header-subtitle">Προπόνηση ή Ιστορικό</p>
     </div>
 
     <!-- Stopwatch -->
     <div class="stopwatch" id="stopwatch">
-        <span id="timer">00:00</span>
+        <span id="timer">00:00:00</span>
         <button onclick="toggleTimer()">▶</button>
     </div>
 
@@ -261,68 +392,148 @@
         <div class="exercises" id="exercises-container"></div>
 
         <!-- Save Button -->
-        <button class="save-btn" onclick="saveWorkout()" style="display:none;" id="save-btn">
-            ✅ Τέλος & Αποθήκευση
+        <button class="save-btn" onclick="saveWorkout()" id="save-btn">
+            ✅ Αποθήκευση Προπόνησης
         </button>
     </div>
 
     <!-- HISTORY SCREEN -->
     <div id="history-screen" class="hidden">
         <div style="padding: 15px;">
-            <h2 style="font-size: 24px; margin-bottom: 15px;">📊 Ιστορικό</h2>
+            <h2 style="font-size: 22px; margin-bottom: 15px;">📊 Ιστορικό Προπονήσεων</h2>
             <div id="history-list"></div>
         </div>
     </div>
 
-    <!-- Bottom Navigation -->
+    <!-- EDIT MODAL -->
+    <div class="modal" id="edit-modal">
+        <div class="modal-content">
+            <h2 id="modal-title">Επεξεργασία</h2>
+            <div id="modal-body"></div>
+            <div class="modal-buttons">
+                <button class="cancel-btn" onclick="closeModal()">Άκυρο</button>
+                <button class="confirm-btn" onclick="confirmSave()">Αποθήκευση</button>
+                <button class="delete-btn" onclick="deleteCurrent()">Διαγραφή</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAV -->
     <div class="bottom-nav">
         <button class="nav-btn active" onclick="showScreen('workout')">🏋️ Προπόνηση</button>
         <button class="nav-btn" onclick="showScreen('history')">📊 Ιστορικό</button>
+        <button class="nav-btn" onclick="resetAll()">🔄 Reset</button>
     </div>
 
     <script>
-        // ============ DATA ============
+        // ============ DATA CONFIGURATION ============
         const MUSCLE_GROUPS = {
-            shoulders: { name: 'Ώμοι', exercises: ['Πιέσεις ώμων', 'Εκτάσεις', 'Arnold Press', 'Πίσω μοίρα'] },
-            chest: { name: 'Στήθος', exercises: ['Επικλινής πάγκος', 'Ίσιος πάγκος (μπάρα)', 'Flyes', 'Peck Deck'] },
-            back: { name: 'Πλάτη', exercises: ['Έλξεις', 'Κωπηλατική'] },
-            triceps: { name: 'Τρικέφαλα', exercises: ['Εκτάσεις σε σχοινί', 'Κανονικές εκτάσεις', 'Γαλλικές πιέσεις', 'Βυθίσεις'] },
-            biceps: { name: 'Δικέφαλα', exercises: [] },
-            legs: { name: 'Πόδια', exercises: [] },
-            crossfit: { name: 'CrossFit', exercises: [] },
-            walking: { name: 'Περπάτημα', exercises: [], isTimerOnly: true }
+            shoulders: { 
+                name: 'Ώμοι', 
+                exercises: ['Πιέσεις ώμων', 'Εκτάσεις', 'Arnold Press', 'Πίσω μοίρα'],
+                customExercises: []
+            },
+            chest: { 
+                name: 'Στήθος', 
+                exercises: ['Επικλινής πάγκος', 'Ίσιος πάγκος (μπάρα)', 'Flyes', 'Peck Deck'],
+                customExercises: []
+            },
+            back: { 
+                name: 'Πλάτη', 
+                exercises: ['Έλξεις', 'Κωπηλατική'],
+                customExercises: []
+            },
+            triceps: { 
+                name: 'Τρικέφαλα', 
+                exercises: ['Εκτάσεις σε σχοινί', 'Κανονικές εκτάσεις', 'Γαλλικές πιέσεις', 'Βυθίσεις'],
+                customExercises: []
+            },
+            biceps: { 
+                name: 'Δικέφαλα', 
+                exercises: [],
+                customExercises: []
+            },
+            legs: { 
+                name: 'Πόδια', 
+                exercises: [],
+                customExercises: []
+            },
+            crossfit: { 
+                name: 'CrossFit', 
+                exercises: [],
+                customExercises: []
+            },
+            walking: { 
+                name: 'Περπάτημα', 
+                exercises: [],
+                customExercises: [],
+                isWalking: true
+            }
         };
 
+        // ============ APP STATE ============
         let selectedGroups = [];
         let currentExercises = [];
         let timerSeconds = 0;
         let timerInterval = null;
         let isTimerRunning = false;
+        let editingWorkoutIndex = null;
+        let editingExerciseData = null;
 
-        // ============ INIT ============
+        // ============ INITIALIZATION ============
         function init() {
+            loadMuscleData();
             renderMuscleGroups();
-            loadLockedData();
             loadHistory();
+            
+            if (editingWorkoutIndex !== null) {
+                loadEditingMode();
+            }
         }
 
-        // ============ MUSCLE GROUPS ============
+        // ============ LOAD/SAVE MUSCLE DATA ============
+        function loadMuscleData() {
+            const saved = JSON.parse(localStorage.getItem('muscleGroups') || '{}');
+            Object.keys(saved).forEach(key => {
+                if (MUSCLE_GROUPS[key]) {
+                    MUSCLE_GROUPS[key].customExercises = saved[key] || [];
+                }
+            });
+        }
+
+        function saveMuscleData() {
+            const data = {};
+            Object.keys(MUSCLE_GROUPS).forEach(key => {
+                data[key] = MUSCLE_GROUPS[key].customExercises;
+            });
+            localStorage.setItem('muscleGroups', JSON.stringify(data));
+        }
+
+        // ============ MUSCLE GROUPS RENDERING ============
         function renderMuscleGroups() {
             const grid = document.getElementById('muscle-grid');
             grid.innerHTML = '';
             
             Object.keys(MUSCLE_GROUPS).forEach(key => {
+                const group = MUSCLE_GROUPS[key];
                 const btn = document.createElement('button');
                 btn.className = 'muscle-btn';
-                btn.textContent = MUSCLE_GROUPS[key].name;
+                btn.innerHTML = `${group.name} ${group.exercises.length + group.customExercises.length}`;
                 btn.onclick = () => toggleMuscleGroup(key, btn);
+                
+                if (selectedGroups.includes(key)) {
+                    btn.classList.add('selected');
+                }
+                
                 grid.appendChild(btn);
             });
         }
 
         function toggleMuscleGroup(key, btn) {
-            if (selectedGroups.includes(key)) {
-                selectedGroups = selectedGroups.filter(g => g !== key);
+            const index = selectedGroups.indexOf(key);
+            
+            if (index > -1) {
+                selectedGroups.splice(index, 1);
                 btn.classList.remove('selected');
             } else {
                 selectedGroups.push(key);
@@ -332,18 +543,34 @@
             updateExercises();
         }
 
+        // ============ EXERCISES MANAGEMENT ============
         function updateExercises() {
             currentExercises = [];
             
             selectedGroups.forEach(groupKey => {
                 const group = MUSCLE_GROUPS[groupKey];
-                group.exercises.forEach(exName => {
+                
+                // Walking mode - special handling
+                if (group.isWalking && currentExercises.length === 0) {
+                    currentExercises.push({
+                        id: 'walking',
+                        name: '⏱️ Περπάτημα',
+                        type: 'walking',
+                        sets: [],
+                        duration: 0
+                    });
+                    document.getElementById('save-btn').style.display = 'block';
+                    return;
+                }
+
+                // Regular exercises
+                [...group.exercises, ...group.customExercises].forEach(exName => {
                     const locked = getLockedData(exName);
                     currentExercises.push({
+                        id: generateId(),
                         name: exName,
-                        sets: locked || [
-                            {weight: '', reps: ''},
-                            {weight: '', reps: ''},
+                        type: 'regular',
+                        sets: locked ? locked : [
                             {weight: '', reps: ''},
                             {weight: '', reps: ''}
                         ],
@@ -358,10 +585,30 @@
         function renderExercises() {
             const container = document.getElementById('exercises-container');
             const saveBtn = document.getElementById('save-btn');
+            const workoutScreen = document.getElementById('workout-screen');
             
             if (currentExercises.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#999; padding:40px;">Επίλεξε μυϊκές ομάδες</p>';
+                container.innerHTML = '<p style="text-align:center; color:#999; padding:40px;">Επίλεξε μυϊκές ομάδες για να ξεκινήσεις</p>';
                 saveBtn.style.display = 'none';
+                return;
+            }
+
+            // Check if any walking session
+            const hasWalking = currentExercises.some(ex => ex.type === 'walking');
+            
+            if (hasWalking) {
+                saveBtn.style.display = 'block';
+                container.innerHTML = `
+                    <div class="exercise-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        <div class="exercise-header">
+                            <div class="exercise-name" style="color: white;">⏱️ Περίπατο / Διαδρομή</div>
+                            <div style="color: white;">Κράτα το χρονόμετρο ενεργοποιημένο!</div>
+                        </div>
+                        <p style="margin-top: 10px; text-align: center; font-size: 14px;">
+                            Ο χρόνος θα καταγραφεί αυτόματα στην αποθήκευση
+                        </p>
+                    </div>
+                `;
                 return;
             }
 
@@ -372,19 +619,34 @@
                 const card = document.createElement('div');
                 card.className = 'exercise-card';
                 
+                const headerButtons = [];
+                if (ex.sets.length > 1) {
+                    headerButtons.push(`
+                        <button class="remove-set-btn" onclick="removeSet(${exIndex})">-</button>
+                    `);
+                }
+                headerButtons.push(`
+                    <button class="add-set-btn" onclick="addSet(${exIndex})">+</button>
+                `);
+
                 card.innerHTML = `
                     <div class="exercise-header">
                         <div class="exercise-name">${ex.name}</div>
-                        <button class="lock-btn ${ex.isLocked ? 'locked' : ''}" onclick="toggleLock(${exIndex})">
-                            ${ex.isLocked ? '🔒 Κλειδωμένο' : '🔓 Ξεκλείδωτο'}
-                        </button>
+                        <div class="header-buttons">
+                            <button class="lock-btn ${ex.isLocked ? 'locked' : ''}" onclick="toggleLock(${exIndex})">
+                                ${ex.isLocked ? '🔒 Κλειδωμένο' : '🔓 Ξεκλείδωτο'}
+                            </button>
+                            ${headerButtons.join('')}
+                        </div>
                     </div>
+                    
                     <table class="sets-table">
                         <thead>
                             <tr>
-                                <th>Σετ</th>
-                                <th>Κιλά</th>
-                                <th>Επαναλήψεις</th>
+                                <th style="width: 60px;">Σετ</th>
+                                <th style="width: 100px;">Κιλά</th>
+                                <th style="width: 100px;">Επαναλήψεις</th>
+                                <th style="width: 40px;"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -395,18 +657,30 @@
                                         <input type="number" 
                                                value="${set.weight}" 
                                                onchange="updateSet(${exIndex}, ${setIndex}, 'weight', this.value)"
-                                               placeholder="0">
+                                               placeholder="kg">
                                     </td>
                                     <td>
                                         <input type="number" 
                                                value="${set.reps}" 
                                                onchange="updateSet(${exIndex}, ${setIndex}, 'reps', this.value)"
-                                               placeholder="0">
+                                               placeholder="reps">
+                                    </td>
+                                    <td>
+                                        <button class="delete-row-btn" onclick="deleteRow(${exIndex}, ${setIndex})">×</button>
                                     </td>
                                 </tr>
                             `).join('')}
                         </tbody>
                     </table>
+                    
+                    <!-- Custom Exercise Input -->
+                    <div class="add-exercise-section">
+                        <h4>➕ Πρόσθεσε Άσκηση</h4>
+                        <div class="input-row">
+                            <input type="text" id="custom-${exIndex}" placeholder="Όνομα άσκησης...">
+                            <button onclick="addCustomExercise(${exIndex})">+ ΑΣΚΗΣΗ</button>
+                        </div>
+                    </div>
                 `;
                 
                 container.appendChild(card);
@@ -417,6 +691,43 @@
             currentExercises[exIndex].sets[setIndex][field] = value;
         }
 
+        function addSet(exIndex) {
+            currentExercises[exIndex].sets.push({weight: '', reps: ''});
+            renderExercises();
+        }
+
+        function removeSet(exIndex) {
+            if (currentExercises[exIndex].sets.length > 1) {
+                currentExercises[exIndex].sets.pop();
+                renderExercises();
+            }
+        }
+
+        function deleteRow(exIndex, setIndex) {
+            if (currentExercises[exIndex].sets.length > 1) {
+                currentExercises[exIndex].sets.splice(setIndex, 1);
+                renderExercises();
+            }
+        }
+
+        function addCustomExercise(exIndex) {
+            const input = document.getElementById(`custom-${exIndex}`);
+            const name = input.value.trim();
+            
+            if (!name) return;
+            
+            const groupKey = selectedGroups[0];
+            MUSCLE_GROUPS[groupKey].customExercises.push(name);
+            saveMuscleData();
+            
+            // Update current exercises
+            currentExercises[exIndex].name = name;
+            input.value = '';
+            
+            renderExercises();
+        }
+
+        // ============ LOCK FUNCTIONALITY ============
         function toggleLock(exIndex) {
             const ex = currentExercises[exIndex];
             ex.isLocked = !ex.isLocked;
@@ -430,7 +741,24 @@
             renderExercises();
         }
 
-        // ============ TIMER ============
+        function saveLockedData(exerciseName, sets) {
+            const locked = JSON.parse(localStorage.getItem('lockedExercises') || '{}');
+            locked[exerciseName] = sets;
+            localStorage.setItem('lockedExercises', JSON.stringify(locked));
+        }
+
+        function removeLockedData(exerciseName) {
+            const locked = JSON.parse(localStorage.getItem('lockedExercises') || '{}');
+            delete locked[exerciseName];
+            localStorage.setItem('lockedExercises', JSON.stringify(locked));
+        }
+
+        function getLockedData(exerciseName) {
+            const locked = JSON.parse(localStorage.getItem('lockedExercises') || '{}');
+            return locked[exerciseName] || null;
+        }
+
+        // ============ TIMER FUNCTIONS ============
         function toggleTimer() {
             isTimerRunning = !isTimerRunning;
             const sw = document.getElementById('stopwatch');
@@ -451,114 +779,193 @@
         }
 
         function updateTimerDisplay() {
-            const mins = Math.floor(timerSeconds / 60);
+            const hours = Math.floor(timerSeconds / 3600);
+            const mins = Math.floor((timerSeconds % 3600) / 60);
             const secs = timerSeconds % 60;
             document.getElementById('timer').textContent = 
-                `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+                `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
         }
 
         // ============ SAVE WORKOUT ============
         function saveWorkout() {
             const workout = {
+                id: generateId(),
                 date: new Date().toLocaleString('el-GR'),
+                timestamp: Date.now(),
                 duration: timerSeconds,
-                exercises: currentExercises.map(ex => ({
-                    name: ex.name,
-                    sets: ex.sets.filter(s => s.weight || s.reps)
-                })).filter(ex => ex.sets.length > 0)
+                exercises: [],
+                muscleGroups: selectedGroups
             };
 
-            if (workout.exercises.length === 0) {
-                alert('⚠️ Δεν έχεις συμπληρώσει καμία άσκηση!');
+            currentExercises.forEach(ex => {
+                if (ex.type === 'walking') {
+                    workout.walkingDuration = timerSeconds;
+                } else if (ex.sets.some(s => s.weight || s.reps)) {
+                    workout.exercises.push({
+                        name: ex.name,
+                        sets: ex.sets.filter(s => s.weight || s.reps)
+                    });
+                }
+            });
+
+            if (workout.exercises.length === 0 && !workout.walkingDuration) {
+                alert('⚠️ Δεν έχεις συμπληρώσει καμία άσκηση ή χρόνο!');
                 return;
             }
 
             const history = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
-            history.unshift(workout);
+            if (editingWorkoutIndex !== null) {
+                history[editingWorkoutIndex] = workout;
+                editingWorkoutIndex = null;
+            } else {
+                history.unshift(workout);
+            }
             localStorage.setItem('workoutHistory', JSON.stringify(history));
 
-            alert('✅ Η προπόνηση αποθηκεύτηκε!');
+            alert('✅ Η προπόνηση αποθηκεύτηκε επιτυχώς!');
             
-            // Reset
-            timerSeconds = 0;
-            updateTimerDisplay();
-            if (isTimerRunning) toggleTimer();
-            
+            resetSession();
             showScreen('history');
         }
 
-        // ============ LOCKED DATA ============
-        function getLockedData(exerciseName) {
-            const locked = JSON.parse(localStorage.getItem('lockedExercises') || '{}');
-            return locked[exerciseName] || null;
+        function resetSession() {
+            timerSeconds = 0;
+            updateTimerDisplay();
+            if (isTimerRunning) toggleTimer();
+            selectedGroups = [];
+            currentExercises = [];
+            renderMuscleGroups();
+            renderExercises();
         }
 
-        function saveLockedData(exerciseName, sets) {
-            const locked = JSON.parse(localStorage.getItem('lockedExercises') || '{}');
-            locked[exerciseName] = sets;
-            localStorage.setItem('lockedExercises', JSON.stringify(locked));
-        }
-
-        function removeLockedData(exerciseName) {
-            const locked = JSON.parse(localStorage.getItem('lockedExercises') || '{}');
-            delete locked[exerciseName];
-            localStorage.setItem('lockedExercises', JSON.stringify(locked));
-        }
-
-        function loadLockedData() {
-            // Already handled in updateExercises()
-        }
-
-        // ============ HISTORY ============
+        // ============ HISTORY & EDITING ============
         function loadHistory() {
             const history = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
             const container = document.getElementById('history-list');
             
             if (history.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#999; padding:40px;">Δεν υπάρχει ιστορικό ακόμα</p>';
+                container.innerHTML = '<p style="text-align:center; color:#999; padding:40px;">📋 Δεν υπάρχει ιστορικό ακόμα. Διάλεξε ασκήσεις και άρχισε!</p>';
                 return;
             }
 
-            container.innerHTML = history.map(w => `
-                <div class="history-item">
-                    <div class="history-date">📅 ${w.date}</div>
-                    <div style="color:#666; font-size:14px; margin-top:5px;">
-                        ⏱️ Διάρκεια: ${Math.floor(w.duration / 60)} λεπτά
+            container.innerHTML = history.map((w, idx) => {
+                const durationMin = w.duration >= 3600 
+                    ? `${Math.floor(w.duration / 3600)}ω ${Math.floor((w.duration % 3600) / 60)}'` 
+                    : `${Math.floor(w.duration / 60)} λεπτά`;
+                
+                return `
+                    <div class="history-item" onclick="editWorkout(${idx})">
+                        <div class="history-date">📅 ${w.date}</div>
+                        <div style="color:#666; font-size:13px; margin-top:3px;">
+                            ⏱️ ${durationMin} • ${w.exercises.length} Ασκήσεις
+                        </div>
+                        <div style="margin-top:8px; font-size:13px; color:#333;">
+                            ${w.exercises.slice(0, 2).map(ex => `<strong>${ex.name}</strong>`).join(', ')}
+                            ${w.exercises.length > 2 ? ` (+${w.exercises.length - 2})` : ''}
+                            ${w.walkingDuration ? '<br><strong>👣 Περίπατο</strong>' : ''}
+                        </div>
                     </div>
-                    <div style="margin-top:8px;">
-                        ${w.exercises.map(ex => `
-                            <div style="font-size:13px; color:#333; margin-top:4px;">
-                                <strong>${ex.name}</strong>: ${ex.sets.map(s => `${s.weight}kg×${s.reps}`).join(', ')}
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
-        // ============ NAVIGATION ============
+        function editWorkout(index) {
+            const history = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
+            const workout = history[index];
+            
+            editingWorkoutIndex = index;
+            
+            // Load exercises
+            selectedGroups = workout.muscleGroups || [];
+            
+            currentExercises = [];
+            if (workout.walkingDuration) {
+                currentExercises.push({
+                    id: 'walking',
+                    name: '⏱️ Περπάτημα',
+                    type: 'walking',
+                    sets: [],
+                    duration: workout.walkingDuration
+                });
+            } else {
+                workout.exercises.forEach(ex => {
+                    currentExercises.push({
+                        id: generateId(),
+                        name: ex.name,
+                        type: 'regular',
+                        sets: ex.sets,
+                        isLocked: false
+                    });
+                });
+            }
+            
+            renderMuscleGroups();
+            renderExercises();
+            showScreen('workout');
+        }
+
+        function deleteCurrent() {
+            if (editingWorkoutIndex === null) return;
+            
+            if (!confirm('Θες οριστικά διαγραφή αυτή την προπόνηση;')) return;
+            
+            const history = JSON.parse(localStorage.getItem('workoutHistory') || '[]');
+            history.splice(editingWorkoutIndex, 1);
+            localStorage.setItem('workoutHistory', JSON.stringify(history));
+            
+            editingWorkoutIndex = null;
+            closeModal();
+            loadHistory();
+        }
+
+        // ============ UTILITIES ============
+        function generateId() {
+            return Math.random().toString(36).substr(2, 9);
+        }
+
         function showScreen(screen) {
             const workout = document.getElementById('workout-screen');
             const history = document.getElementById('history-screen');
             const navBtns = document.querySelectorAll('.nav-btn');
+            const subtitle = document.getElementById('header-subtitle');
 
             if (screen === 'workout') {
                 workout.classList.remove('hidden');
                 history.classList.add('hidden');
                 navBtns[0].classList.add('active');
                 navBtns[1].classList.remove('active');
+                subtitle.textContent = 'Προπόνηση';
             } else {
                 workout.classList.add('hidden');
                 history.classList.remove('hidden');
                 navBtns[0].classList.remove('active');
                 navBtns[1].classList.add('active');
+                subtitle.textContent = 'Ιστορικό';
                 loadHistory();
             }
         }
 
+        function closeModal() {
+            document.getElementById('edit-modal').classList.remove('active');
+            editingWorkoutIndex = null;
+        }
+
+        function confirmSave() {
+            closeModal();
+            saveWorkout();
+        }
+
+        function resetAll() {
+            if (!confirm('⚠️ Θέλεις να σβήσεις ΟΛΑ τα δεδομένα; Αυτό δεν μπορεί να αναιρεθεί.')) return;
+            
+            localStorage.clear();
+            location.reload();
+        }
+
         // ============ START APP ============
         init();
-    </script>
 
+    </script>
 </body>
 </html>
+--

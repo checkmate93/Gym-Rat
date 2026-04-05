@@ -1,225 +1,385 @@
+Ακολουθεί ο πλήρης κώδικας για την εφαρμογή **Gym Tracker** σε ένα ενιαίο αρχείο HTML. Η εφαρμογή είναι πλήρως responsive, χρησιμοποιεί LocalStorage για την αποθήκευση των δεδομένων και περιλαμβάνει όλες τις λειτουργίες που ζητήθηκαν (Templates, Lock/Unlock, Ιστορικό, Ημερολόγιο).
+
+```html
 <!DOCTYPE html>
 <html lang="el">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>💪 Gym Tracker PRO</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Tracker Pro</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: sans-serif; background: #f0f2f5; padding-bottom: 100px; }
-        .header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 20px; position: sticky; top: 0; z-index: 100; text-align: center; }
-        .stopwatch { position: fixed; top: 80px; right: 10px; background: #000; color: #0f0; padding: 8px 12px; border-radius: 8px; font-family: monospace; z-index: 99; display: flex; align-items: center; gap: 5px; }
-        .muscle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
-        .muscle-btn { background: white; border: 2px solid #ddd; padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer; }
-        .muscle-btn.selected { background: #667eea; color: white; border-color: #667eea; }
-        .exercise-card { background: white; border-radius: 15px; padding: 15px; margin: 10px 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .ex-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-        .set-row { display: grid; grid-template-columns: 0.5fr 1fr 1fr 0.3fr; gap: 5px; margin-bottom: 5px; align-items: center; }
-        .set-row input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 5px; text-align: center; font-size: 16px; }
-        .btn-group { display: flex; gap: 5px; margin-top: 10px; }
-        .btn-sml { flex: 1; padding: 8px; border: none; border-radius: 5px; font-size: 12px; font-weight: bold; cursor: pointer; }
-        .btn-add { background: #e3f2fd; color: #1976d2; }
-        .btn-rem { background: #ffebee; color: #c62828; }
-        .btn-lock { background: #e8f5e9; color: #2e7d32; }
-        .btn-lock.active { background: #2e7d32; color: white; }
-        .save-btn { background: #2ecc71; color: white; border: none; padding: 15px; border-radius: 10px; width: calc(100% - 30px); margin: 15px; font-weight: bold; font-size: 18px; }
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; border-top: 1px solid #ddd; height: 60px; }
-        .nav-btn { flex: 1; border: none; background: none; font-weight: bold; color: #666; }
-        .nav-btn.active { color: #667eea; border-top: 3px solid #667eea; }
-        .history-card { background: white; margin: 10px; padding: 15px; border-radius: 10px; border-left: 5px solid #667eea; }
-        .hidden { display: none !important; }
+        /* CSS - Minimalist & Clean Design */
+        :root {
+            --primary: #000000;
+            --bg: #ffffff;
+            --gray: #f4f4f4;
+            --border: #e0e0e0;
+            --danger: #ff4444;
+            --success: #2ecc71;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--primary);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Navigation Tabs */
+        nav {
+            display: flex;
+            border-bottom: 2px solid var(--border);
+            margin-bottom: 20px;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 100;
+        }
+
+        nav button {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            background: none;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            color: #888;
+            transition: 0.3s;
+        }
+
+        nav button.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* UI Elements */
+        h2 { border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-top: 30px; }
+        
+        .muscle-groups {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .muscle-tag {
+            padding: 10px;
+            border: 1px solid var(--border);
+            text-align: center;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .muscle-tag.selected {
+            background: var(--primary);
+            color: white;
+        }
+
+        .exercise-card {
+            border: 1px solid var(--border);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .exercise-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        input, textarea {
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input[disabled] { background: #f9f9f9; border: 1px dashed #ccc; }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-black { background: var(--primary); color: white; width: 100%; margin-top: 10px; }
+        .btn-outline { background: white; border: 1px solid var(--primary); color: var(--primary); }
+        .btn-danger { background: var(--danger); color: white; font-size: 12px; }
+        
+        .lock-btn { position: absolute; top: 10px; right: 10px; cursor: pointer; font-size: 18px; }
+
+        /* History & Diary */
+        .history-item {
+            border-left: 4px solid var(--primary);
+            background: var(--gray);
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .diary-section { margin-top: 30px; padding-top: 20px; border-top: 2px solid var(--gray); }
+
+        .small-text { font-size: 12px; color: #666; }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .exercise-row input { flex: 1 1 40%; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h2>Gym Tracker PRO</h2>
+<div class="container">
+    <nav>
+        <button id="tab-btn-workout" class="active" onclick="showTab('workout')">Προπόνηση</button>
+        <button id="tab-btn-history" onclick="showTab('history')">Ιστορικό</button>
+    </nav>
+
+    <!-- TAB 1: WORKOUT -->
+    <div id="workout" class="tab-content active">
+        <h3>Μυϊκές Ομάδες</h3>
+        <div class="muscle-groups" id="muscle-groups">
+            <div class="muscle-tag" onclick="toggleMuscle(this)">Ώμοι</div>
+            <div class="muscle-tag" onclick="toggleMuscle(this)">Πλάτη</div>
+            <div class="muscle-tag" onclick="toggleMuscle(this)">Δικέφαλα</div>
+            <div class="muscle-tag" onclick="toggleMuscle(this)">Τρικέφαλα</div>
+            <div class="muscle-tag" onclick="toggleMuscle(this)">Στήθος</div>
+            <div class="muscle-tag" onclick="toggleMuscle(this)">Πόδια</div>
+            <div class="muscle-tag" onclick="toggleMuscle(this)">Περπάτημα</div>
+        </div>
+
+        <div id="exercise-list">
+            <!-- Exercises will be injected here -->
+        </div>
+
+        <button class="btn btn-outline" onclick="addExercise()">+ Προσθήκη Άσκησης</button>
+        <button class="btn btn-black" style="margin-top: 40px; background: var(--success);" onclick="saveWorkout()">Αποθήκευση Προπόνησης</button>
+        <button class="btn btn-danger" style="margin-top: 20px; width: 100%; opacity: 0.7;" onclick="globalReset()">Ολική Διαγραφή Δεδομένων</button>
     </div>
 
-    <div class="stopwatch">
-        <span id="timer-val">00:00:00</span>
-        <button onclick="toggleT()" id="t-btn" style="background:#0f0; border:none; padding:2px 5px; border-radius:3px;">▶</button>
-    </div>
+    <!-- TAB 2: HISTORY -->
+    <div id="history" class="tab-content">
+        <h3>Ιστορικό Προπονήσεων</h3>
+        <div id="history-list"></div>
 
-    <div id="screen-work">
-        <div class="muscle-grid" id="m-grid"></div>
-        <div id="ex-list"></div>
-        <button class="save-btn" onclick="saveW()" id="sv-btn" style="display:none;">✅ ΑΠΟΘΗΚΕΥΣΗ ΠΡΟΠΟΝΗΣΗΣ</button>
+        <div class="diary-section">
+            <h3>Ημερολόγιο & Σημειώσεις</h3>
+            <input type="date" id="diary-date" style="width: 100%; margin-bottom: 10px;">
+            <textarea id="diary-note" placeholder="Πλάνο ή παρατηρήσεις..." style="width: 100%; height: 100px; box-sizing: border-box;"></textarea>
+            <button class="btn btn-black" onclick="saveDiaryNote()">Αποθήκευση Σημείωσης</button>
+            <div id="diary-display" style="margin-top: 20px;"></div>
+        </div>
     </div>
+</div>
 
-    <div id="screen-hist" class="hidden">
-        <div id="hist-list" style="padding-top:10px;"></div>
-    </div>
+<script>
+    // Data structures
+    let exercises = JSON.parse(localStorage.getItem('gym_templates')) || [];
+    let history = JSON.parse(localStorage.getItem('gym_history')) || [];
+    let diary = JSON.parse(localStorage.getItem('gym_diary')) || {};
 
-    <div class="bottom-nav">
-        <button class="nav-btn active" onclick="tab('work')">🏋️ Workout</button>
-        <button class="nav-btn" onclick="tab('hist')">📊 History</button>
-        <button class="nav-btn" onclick="clearData()" style="color:red">🗑️ Reset</button>
-    </div>
+    // Tab Navigation
+    function showTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        document.getElementById('tab-btn-' + tabId).classList.add('active');
+        if(tabId === 'history') { renderHistory(); renderDiary(); }
+    }
 
-    <script>
-        const GROUPS = {
-            'Ώμοι': ['Πιέσεις ώμων', 'Εκτάσεις', 'Arnold Press', 'Πίσω μοίρα'],
-            'Στήθος': ['Επικλινής πάγκος', 'Ίσιος πάγκος (μπάρα)', 'Flyes', 'Peck Deck'],
-            'Πλάτη': ['Έλξεις', 'Κωπηλατική'],
-            'Τρικέφαλα': ['Εκτάσεις σε σχοινί', 'Κανονικές εκτάσεις', 'Γαλλικές πιέσεις', 'Βυθίσεις'],
-            'Δικέφαλα': [], 'Πόδια': [], 'CrossFit': [], 'Περπάτημα': []
+    // Muscle Group Toggle
+    function toggleMuscle(el) {
+        el.classList.toggle('selected');
+    }
+
+    // Exercise Management
+    function addExercise(data = { name: '', sets: '', kg: '', locked: false }) {
+        const container = document.getElementById('exercise-list');
+        const id = Date.now() + Math.random();
+        
+        const div = document.createElement('div');
+        div.className = 'exercise-card';
+        div.id = `ex-${id}`;
+        div.innerHTML = `
+            <span class="lock-btn" onclick="toggleLock('${id}')">${data.locked ? '🔒' : '🔓'}</span>
+            <div class="exercise-row">
+                <input type="text" placeholder="Όνομα Άσκησης" class="ex-name" value="${data.name}" ${data.locked ? 'disabled' : ''}>
+            </div>
+            <div class="exercise-row">
+                <input type="number" placeholder="Sets" class="ex-sets" value="${data.sets}" style="width: 60px;">
+                <input type="number" placeholder="Κιλά" class="ex-kg" value="${data.kg}" style="width: 60px;">
+                <button class="btn btn-danger" onclick="deleteExercise('${id}')">Διαγραφή</button>
+            </div>
+        `;
+        container.appendChild(div);
+    }
+
+    function toggleLock(id) {
+        const card = document.getElementById(`ex-${id}`);
+        const nameInput = card.querySelector('.ex-name');
+        const lockBtn = card.querySelector('.lock-btn');
+        
+        const isLocked = nameInput.hasAttribute('disabled');
+        if (isLocked) {
+            nameInput.removeAttribute('disabled');
+            lockBtn.innerText = '🔓';
+        } else {
+            if (!nameInput.value) return alert("Δώστε όνομα στην άσκηση");
+            nameInput.setAttribute('disabled', 'true');
+            lockBtn.innerText = '🔒';
+        }
+        updateTemplates();
+    }
+
+    function deleteExercise(id) {
+        if(confirm("Διαγραφή άσκησης;")) {
+            document.getElementById(`ex-${id}`).remove();
+            updateTemplates();
+        }
+    }
+
+    // Storage logic
+    function updateTemplates() {
+        const cards = document.querySelectorAll('.exercise-card');
+        const templates = [];
+        cards.forEach(card => {
+            const name = card.querySelector('.ex-name').value;
+            const locked = card.querySelector('.ex-name').hasAttribute('disabled');
+            if(locked && name) {
+                templates.push({
+                    name: name,
+                    sets: card.querySelector('.ex-sets').value,
+                    kg: card.querySelector('.ex-kg').value,
+                    locked: true
+                });
+            }
+        });
+        localStorage.setItem('gym_templates', JSON.stringify(templates));
+    }
+
+    function saveWorkout() {
+        const selectedMuscles = Array.from(document.querySelectorAll('.muscle-tag.selected')).map(el => el.innerText);
+        const exerciseCards = document.querySelectorAll('.exercise-card');
+        
+        if (selectedMuscles.length === 0) return alert("Επιλέξτε τουλάχιστον μία μυϊκή ομάδα.");
+        if (exerciseCards.length === 0) return alert("Προσθέστε τουλάχιστον μία άσκηση.");
+
+        const workoutData = {
+            id: Date.now(),
+            date: new Date().toLocaleString('el-GR'),
+            muscles: selectedMuscles,
+            exercises: []
         };
 
-        let activeGroups = [];
-        let workoutData = {}; // Stores sets for each exercise
-        let walkMin = 0;
-        let sec = 0, timerObj = null, isT = false;
-
-        function init() {
-            const grid = document.getElementById('m-grid');
-            Object.keys(GROUPS).forEach(g => {
-                const b = document.createElement('button');
-                b.className = 'muscle-btn';
-                b.innerText = g;
-                b.onclick = () => toggleG(g, b);
-                grid.appendChild(b);
+        let valid = true;
+        exerciseCards.forEach(card => {
+            const name = card.querySelector('.ex-name').value;
+            if(!name) valid = false;
+            workoutData.exercises.push({
+                name: name,
+                sets: card.querySelector('.ex-sets').value,
+                kg: card.querySelector('.ex-kg').value
             });
-            loadH();
-        }
+        });
 
-        function toggleG(g, b) {
-            if (activeGroups.includes(g)) activeGroups = activeGroups.filter(x => x !== g);
-            else activeGroups.push(g);
-            b.classList.toggle('selected');
-            renderEx();
-        }
+        if(!valid) return alert("Συμπληρώστε τα ονόματα όλων των ασκήσεων.");
 
-        function renderEx() {
-            const cont = document.getElementById('ex-list');
-            cont.innerHTML = '';
-            document.getElementById('sv-btn').style.display = activeGroups.length > 0 ? 'block' : 'none';
+        // Time Estimation
+        const estTime = workoutData.exercises.length * 10;
+        const actualTime = prompt(`Εκτιμώμενος χρόνος: ${estTime} λεπτά. Πόση ώρα διήρκησε η προπόνηση (λεπτά);`, estTime);
+        workoutData.duration = actualTime || estTime;
 
-            activeGroups.forEach(g => {
-                const card = document.createElement('div');
-                card.className = 'exercise-card';
-                if (g === 'Περπάτημα') {
-                    card.innerHTML = `<h3>🚶 Περπάτημα</h3><input type="number" placeholder="Λεπτά" oninput="walkMin=this.value" style="width:100%; padding:10px; margin-top:10px; border-radius:8px; border:1px solid #ccc;">`;
-                } else {
-                    card.innerHTML = `<h3>${g}</h3><div id="exs-${g}"></div>
-                    <div style="margin-top:10px; display:flex; gap:5px;">
-                        <input type="text" id="in-${g}" placeholder="Νέα άσκηση..." style="flex:1; padding:8px; border-radius:5px; border:1px solid #ccc;">
-                        <button onclick="addEx('${g}')" style="padding:8px; background:#667eea; color:white; border:none; border-radius:5px;">+</button>
-                    </div>`;
-                    cont.appendChild(card);
-                    renderExItems(g);
-                }
-                cont.appendChild(card);
-            });
-        }
+        history.unshift(workoutData);
+        localStorage.setItem('gym_history', JSON.stringify(history));
+        updateTemplates();
+        alert("Η προπόνηση αποθηκεύτηκε!");
+        location.reload();
+    }
 
-        function renderExItems(g) {
-            const area = document.getElementById(`exs-${g}`);
-            area.innerHTML = '';
-            GROUPS[g].forEach(ex => {
-                if (!workoutData[ex]) {
-                    const saved = JSON.parse(localStorage.getItem('lock_'+ex));
-                    workoutData[ex] = saved ? saved : [{w:'', r:''}, {w:'', r:''}, {w:'', r:''}, {w:'', r:''}];
-                }
-                const div = document.createElement('div');
-                div.style.marginTop = '15px';
-                div.innerHTML = `
-                    <div class="ex-header"><strong>${ex}</strong></div>
-                    <div id="sets-${ex}"></div>
-                    <div class="btn-group">
-                        <button class="btn-sml btn-add" onclick="changeSet('${ex}', 1)">+ Set</button>
-                        <button class="btn-sml btn-rem" onclick="changeSet('${ex}', -1)">- Set</button>
-                        <button class="btn-sml btn-lock" id="lck-${ex}" onclick="lockEx('${ex}')">🔒 Lock</button>
-                    </div>`;
-                area.appendChild(div);
-                updateSetsUI(ex);
-            });
-        }
-
-        function updateSetsUI(ex) {
-            const area = document.getElementById(`sets-${ex}`);
-            area.innerHTML = workoutData[ex].map((s, i) => `
-                <div class="set-row">
-                    <span style="font-size:12px; color:#666">S${i+1}</span>
-                    <input type="number" value="${s.w}" placeholder="kg" oninput="workoutData['${ex}'][${i}].w=this.value">
-                    <input type="number" value="${s.r}" placeholder="reps" oninput="workoutData['${ex}'][${i}].r=this.value">
+    // History Rendering
+    function renderHistory() {
+        const list = document.getElementById('history-list');
+        list.innerHTML = history.length === 0 ? '<p>Δεν υπάρχει ιστορικό.</p>' : '';
+        
+        history.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'history-item';
+            div.innerHTML = `
+                <div style="display:flex; justify-content:space-between;">
+                    <strong>${item.date}</strong>
+                    <button class="btn-danger" onclick="deleteHistoryItem(${index})">X</button>
                 </div>
-            `).join('');
-        }
+                <div class="small-text">Ομάδες: ${item.muscles.join(', ')} | Διάρκεια: ${item.duration}'</div>
+                <ul style="margin: 5px 0; padding-left: 20px; font-size: 14px;">
+                    ${item.exercises.map(ex => `<li>${ex.name}: ${ex.sets} set x ${ex.kg}kg</li>`).join('')}
+                </ul>
+            `;
+            list.appendChild(div);
+        });
+    }
 
-        function changeSet(ex, val) {
-            if (val > 0) workoutData[ex].push({w:'', r:''});
-            else if (workoutData[ex].length > 1) workoutData[ex].pop();
-            updateSetsUI(ex);
+    function deleteHistoryItem(index) {
+        if(confirm("Διαγραφή αυτής της εγγραφής;")) {
+            history.splice(index, 1);
+            localStorage.setItem('gym_history', JSON.stringify(history));
+            renderHistory();
         }
+    }
 
-        function addEx(g) {
-            const val = document.getElementById(`in-${g}`).value;
-            if (val) { GROUPS[g].push(val); renderEx(); }
+    // Diary Logic
+    function saveDiaryNote() {
+        const date = document.getElementById('diary-date').value;
+        const note = document.getElementById('diary-note').value;
+        if(!date || !note) return alert("Επιλέξτε ημερομηνία και γράψτε μια σημείωση.");
+        
+        diary[date] = note;
+        localStorage.setItem('gym_diary', JSON.stringify(diary));
+        renderDiary();
+        document.getElementById('diary-note').value = '';
+    }
+
+    function renderDiary() {
+        const display = document.getElementById('diary-display');
+        display.innerHTML = '<h4>Αποθηκευμένες Σημειώσεις:</h4>';
+        for (let date in diary) {
+            display.innerHTML += `<div class="small-text"><strong>${date}:</strong> ${diary[date]}</div>`;
         }
+    }
 
-        function lockEx(ex) {
-            localStorage.setItem('lock_'+ex, JSON.stringify(workoutData[ex]));
-            const btn = document.getElementById('lck-'+ex);
-            btn.classList.add('active');
-            btn.innerText = '✅ Locked';
-        }
-
-        function toggleT() {
-            isT = !isT;
-            document.getElementById('t-btn').innerText = isT ? '⏸' : '▶';
-            if (isT) timerObj = setInterval(() => { sec++; updateTUI(); }, 1000);
-            else clearInterval(timerObj);
-        }
-
-        function updateTUI() {
-            const h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60), s = sec%60;
-            document.getElementById('timer-val').innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-        }
-
-        function saveW() {
-            const entry = {
-                date: new Date().toLocaleString('el-GR'),
-                time: document.getElementById('timer-val').innerText,
-                walk: walkMin,
-                details: []
-            };
-            activeGroups.forEach(g => {
-                GROUPS[g].forEach(ex => {
-                    if (workoutData[ex]) {
-                        entry.details.push({ name: ex, sets: [...workoutData[ex]] });
-                    }
-                });
-            });
-            const h = JSON.parse(localStorage.getItem('gym_h') || '[]');
-            h.unshift(entry);
-            localStorage.setItem('gym_h', JSON.stringify(h));
-            alert('Η προπόνηση αποθηκεύτηκε!');
+    function globalReset() {
+        if(confirm("ΠΡΟΣΟΧΗ! Θα διαγραφούν όλα τα δεδομένα (πρότυπα, ιστορικό, σημειώσεις). Είστε σίγουροι;")) {
+            localStorage.clear();
             location.reload();
         }
+    }
 
-        function loadH() {
-            const h = JSON.parse(localStorage.getItem('gym_h') || '[]');
-            document.getElementById('hist-list').innerHTML = h.map(i => `
-                <div class="history-card">
-                    <div style="font-weight:bold; color:#764ba2">${i.date}</div>
-                    <div style="font-size:13px; margin:5px 0;">⏱️ ${i.time} | 🚶 ${i.walk} min</div>
-                    <div style="font-size:12px; color:#444">
-                        ${i.details.map(d => `• ${d.name}: ${d.sets.length} sets`).join('<br>')}
-                    </div>
-                </div>
-            `).join('');
+    // Initialize with Templates
+    window.onload = () => {
+        if(exercises.length > 0) {
+            exercises.forEach(ex => addExercise(ex));
+        } else {
+            addExercise();
         }
+    };
+</script>
 
-        function tab(s) {
-            document.getElementById('screen-work').classList.toggle('hidden', s !== 'work');
-            document.getElementById('screen-hist').classList.toggle('hidden', s !== 'hist');
-            document.querySelectorAll('.nav-btn').forEach((b, idx) => b.classList.toggle('active', (idx===0 && s==='work') || (idx===1 && s==='hist')));
-        }
-
-        function clearData() { if (confirm('Διαγραφή όλων;')) { localStorage.clear(); location.reload(); } }
-
-        init();
-    </script>
 </body>
 </html>
+```

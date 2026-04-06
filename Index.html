@@ -58,21 +58,21 @@
         .tabs {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            padding: 15px;
+            gap: 5px;
+            padding: 12px;
             background: var(--bg);
             flex-wrap: wrap;
             border-bottom: 1px solid var(--border);
         }
 
         .tab-btn {
-            padding: 12px 24px;
+            padding: 10px 16px;
             border: 2px solid var(--border);
             background: var(--bg);
             color: var(--text-muted);
             cursor: pointer;
             border-radius: 25px;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             font-weight: 500;
             transition: all 0.3s;
         }
@@ -442,6 +442,176 @@
         .total-volume-card .unit {
             font-size: 1rem;
             opacity: 0.8;
+        }
+
+        /* Timer Styles */
+        .timer-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .timer-display {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            padding: 40px 20px;
+            margin-bottom: 20px;
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .timer-main {
+            font-size: 5rem;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            line-height: 1;
+        }
+
+        .timer-label {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        .elapsed-time {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid var(--border);
+        }
+
+        .elapsed-time .label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .elapsed-time .time {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--success);
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer-presets {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .preset-btn {
+            padding: 15px;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text);
+        }
+
+        .preset-btn:hover {
+            border-color: var(--primary);
+            background: rgba(108, 92, 231, 0.1);
+        }
+
+        .preset-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .timer-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .timer-btn.start {
+            background: var(--success);
+            color: white;
+        }
+
+        .timer-btn.pause {
+            background: var(--warning);
+            color: var(--dark);
+        }
+
+        .timer-btn.reset {
+            background: var(--danger);
+            color: white;
+        }
+
+        .timer-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .timer-btn:active {
+            transform: scale(0.95);
+        }
+
+        .custom-timer {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--light);
+            border-radius: 15px;
+        }
+
+        .custom-timer-inputs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .custom-timer-inputs input {
+            width: 70px;
+            padding: 12px;
+            text-align: center;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .custom-timer-inputs span {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-muted);
+        }
+
+        .saved-presets {
+            margin-top: 20px;
+        }
+
+        .saved-preset-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: var(--bg);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            border: 1px solid var(--border);
         }
 
         .history-item {
@@ -983,6 +1153,14 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+
+            .timer-main {
+                font-size: 3.5rem;
+            }
+
+            .timer-presets {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
@@ -993,6 +1171,7 @@
 
     <div class="tabs">
         <button class="tab-btn active" data-tab="workout">🏋️ Προπόνηση</button>
+        <button class="tab-btn" data-tab="timer">⏱️ Χρονόμετρο</button>
         <button class="tab-btn" data-tab="history">📊 Ιστορικό</button>
         <button class="tab-btn" data-tab="calendar">📅 Ημερολόγιο</button>
         <button class="tab-btn" data-tab="settings">⚙️ Ρυθμίσεις</button>
@@ -1027,6 +1206,54 @@
             <button class="btn btn-success" style="width:100%; padding:18px; font-size:1.1rem;" onclick="saveWorkout()">
                 💾 Αποθήκευση Προπόνησης
             </button>
+        </div>
+    </div>
+
+    <!-- TIMER TAB -->
+    <div id="timer" class="tab-content">
+        <div class="card">
+            <div class="timer-display">
+                <div class="timer-main" id="countdownDisplay">00:00</div>
+                <div class="timer-label">Χρόνος Ξεκούρασης</div>
+            </div>
+
+            <div class="elapsed-time">
+                <div class="label">🏃 Συνολικός Χρόνος Προπόνησης</div>
+                <div class="time" id="elapsedDisplay">00:00:00</div>
+            </div>
+
+            <div class="timer-presets">
+                <button class="preset-btn" onclick="setPreset(30)">30"</button>
+                <button class="preset-btn" onclick="setPreset(45)">45"</button>
+                <button class="preset-btn" onclick="setPreset(60)">1:00</button>
+                <button class="preset-btn" onclick="setPreset(90)">1:30</button>
+                <button class="preset-btn" onclick="setPreset(120)">2:00</button>
+                <button class="preset-btn" onclick="setPreset(180)">3:00</button>
+            </div>
+
+            <div class="timer-controls">
+                <button class="timer-btn start" id="startBtn" onclick="toggleTimer()">▶</button>
+                <button class="timer-btn reset" onclick="resetTimer()">↺</button>
+            </div>
+
+            <div class="custom-timer">
+                <div class="card-title">⚙️ Προσαρμοσμένος Χρόνος</div>
+                <div class="custom-timer-inputs">
+                    <input type="number" id="customMin" placeholder="00" min="0" max="59" value="0">
+                    <span>:</span>
+                    <input type="number" id="customSec" placeholder="00" min="0" max="59" value="30">
+                    <button class="btn btn-primary" onclick="setCustomTime()">OK</button>
+                </div>
+            </div>
+
+            <div class="saved-presets">
+                <div class="card-title">💾 Αποθηκευμένα Presets</div>
+                <div id="savedPresetsList"></div>
+                <div style="margin-top:15px; display:flex; gap:10px;">
+                    <input type="number" id="newPresetSeconds" placeholder="Δευτερόλεπτα" style="flex:1; padding:12px; border:2px solid var(--border); border-radius:10px;">
+                    <button class="btn btn-success" onclick="savePreset()">💾 Αποθήκευση</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1074,12 +1301,12 @@
             <div class="settings-section">
                 <div class="settings-title">⚡ Λειτουργικότητα</div>
                 <div class="setting-item">
-                    <span class="setting-label">Αυτόματη Αποθήκευση</span>
-                    <div class="toggle-switch" id="autoSaveToggle" onclick="toggleSetting('autoSave')"></div>
+                    <span class="setting-label">Δόνηση</span>
+                    <div class="toggle-switch active" id="vibrationToggle" onclick="toggleSetting('vibration')"></div>
                 </div>
                 <div class="setting-item">
-                    <span class="setting-label">Ειδοποιήσεις</span>
-                    <div class="toggle-switch active" id="notificationsToggle" onclick="toggleSetting('notifications')"></div>
+                    <span class="setting-label">Ήχος Αντίστροφης Μέτρησης</span>
+                    <div class="toggle-switch active" id="soundToggle" onclick="toggleSetting('sound')"></div>
                 </div>
                 <div class="setting-item">
                     <span class="setting-label">Εμφάνιση Volume</span>
@@ -1158,14 +1385,14 @@
         let lockedExercises = JSON.parse(localStorage.getItem('lockedExercises')) || {};
         let workoutHistory = JSON.parse(localStorage.getItem('workoutHistory')) || [];
         let calendarPlans = JSON.parse(localStorage.getItem('calendarPlans')) || {};
+        let timerPresets = JSON.parse(localStorage.getItem('timerPresets')) || [30, 60, 90, 120];
         let settings = JSON.parse(localStorage.getItem('gymSettings')) || {
-            autoSave: false,
-            notifications: true,
+            vibration: true,
+            sound: true,
             showVolume: true,
             primaryColor: '#6c5ce7'
         };
 
-        // ΣΗΜΑΝΤΙΚΟ: Ξεχωριστό tracking για τη σημερινή προπόνηση
         let currentSessionData = {};
         let activeMusclesThisSession = new Set();
 
@@ -1174,6 +1401,24 @@
         let currentYear = new Date().getFullYear();
         let selectedDate = null;
         let editingWorkoutIndex = null;
+
+        // Timer variables
+        let countdownTime = 60;
+        let currentCountdown = 0;
+        let countdownInterval = null;
+        let elapsedTime = 0;
+        let elapsedInterval = null;
+        let isTimerRunning = false;
+
+        // Speech synthesis
+        const synth = window.speechSynthesis;
+
+        // ==================== VIBRATION ====================
+        function vibrate(pattern = 50) {
+            if (settings.vibration && navigator.vibrate) {
+                navigator.vibrate(pattern);
+            }
+        }
 
         // ==================== HELPER FUNCTIONS ====================
         function getMuscleById(id) {
@@ -1211,24 +1456,194 @@
             return volume.toLocaleString('el-GR');
         }
 
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function formatElapsedTime(seconds) {
+            const hrs = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
         // ==================== INITIALIZATION ====================
         document.addEventListener('DOMContentLoaded', () => {
             initTabs();
             renderMuscleGroups();
             renderHistory();
             renderCalendar();
+            renderSavedPresets();
             applySettings();
         });
 
         function initTabs() {
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
+                    vibrate();
                     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                     btn.classList.add('active');
                     document.getElementById(btn.dataset.tab).classList.add('active');
                 });
             });
+        }
+
+        // ==================== TIMER FUNCTIONS ====================
+        function setPreset(seconds) {
+            vibrate();
+            countdownTime = seconds;
+            currentCountdown = seconds;
+            document.getElementById('countdownDisplay').textContent = formatTime(seconds);
+            
+            document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function setCustomTime() {
+            vibrate();
+            const mins = parseInt(document.getElementById('customMin').value) || 0;
+            const secs = parseInt(document.getElementById('customSec').value) || 0;
+            const total = mins * 60 + secs;
+            
+            if (total > 0) {
+                countdownTime = total;
+                currentCountdown = total;
+                document.getElementById('countdownDisplay').textContent = formatTime(total);
+            }
+        }
+
+        function toggleTimer() {
+            vibrate();
+            if (isTimerRunning) {
+                pauseTimer();
+            } else {
+                startTimer();
+            }
+        }
+
+        function startTimer() {
+            if (currentCountdown <= 0) {
+                currentCountdown = countdownTime;
+            }
+            
+            isTimerRunning = true;
+            const startBtn = document.getElementById('startBtn');
+            startBtn.textContent = '⏸';
+            startBtn.classList.remove('start');
+            startBtn.classList.add('pause');
+            
+            // Start elapsed timer if not running
+            if (!elapsedInterval) {
+                elapsedInterval = setInterval(() => {
+                    elapsedTime++;
+                    document.getElementById('elapsedDisplay').textContent = formatElapsedTime(elapsedTime);
+                }, 1000);
+            }
+            
+            // Countdown
+            countdownInterval = setInterval(() => {
+                currentCountdown--;
+                document.getElementById('countdownDisplay').textContent = formatTime(currentCountdown);
+                
+                // Voice countdown at 5, 4, 3, 2, 1
+                if (currentCountdown <= 5 && currentCountdown > 0 && settings.sound) {
+                    speakNumber(currentCountdown);
+                }
+                
+                if (currentCountdown <= 0) {
+                    vibrate([200, 100, 200, 100, 200]);
+                    if (settings.sound) {
+                        speakText("Time!");
+                    }
+                    pauseTimer();
+                    currentCountdown = countdownTime;
+                    document.getElementById('countdownDisplay').textContent = formatTime(countdownTime);
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            isTimerRunning = false;
+            const startBtn = document.getElementById('startBtn');
+            startBtn.textContent = '▶';
+            startBtn.classList.remove('pause');
+            startBtn.classList.add('start');
+            
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+                countdownInterval = null;
+            }
+        }
+
+        function resetTimer() {
+            vibrate();
+            pauseTimer();
+            currentCountdown = countdownTime;
+            document.getElementById('countdownDisplay').textContent = formatTime(countdownTime);
+        }
+
+        function speakNumber(num) {
+            const numbers = {
+                5: 'Five',
+                4: 'Four',
+                3: 'Three',
+                2: 'Two',
+                1: 'One'
+            };
+            speakText(numbers[num]);
+        }
+
+        function speakText(text) {
+            if (synth && settings.sound) {
+                synth.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 1;
+                utterance.pitch = 1;
+                synth.speak(utterance);
+            }
+        }
+
+        function savePreset() {
+            vibrate();
+            const seconds = parseInt(document.getElementById('newPresetSeconds').value);
+            if (seconds && seconds > 0) {
+                if (!timerPresets.includes(seconds)) {
+                    timerPresets.push(seconds);
+                    timerPresets.sort((a, b) => a - b);
+                    localStorage.setItem('timerPresets', JSON.stringify(timerPresets));
+                    renderSavedPresets();
+                    document.getElementById('newPresetSeconds').value = '';
+                }
+            }
+        }
+
+        function deletePreset(seconds) {
+            vibrate();
+            timerPresets = timerPresets.filter(p => p !== seconds);
+            localStorage.setItem('timerPresets', JSON.stringify(timerPresets));
+            renderSavedPresets();
+        }
+
+        function renderSavedPresets() {
+            const container = document.getElementById('savedPresetsList');
+            if (timerPresets.length === 0) {
+                container.innerHTML = '<p style="color:var(--text-muted); text-align:center;">Δεν υπάρχουν αποθηκευμένα presets</p>';
+                return;
+            }
+            
+            container.innerHTML = timerPresets.map(seconds => `
+                <div class="saved-preset-item">
+                    <span style="font-weight:600; font-size:1.1rem;">${formatTime(seconds)}</span>
+                    <div>
+                        <button class="btn btn-primary btn-sm" onclick="setPreset(${seconds})">Χρήση</button>
+                        <button class="btn btn-danger btn-sm" onclick="deletePreset(${seconds})" style="margin-left:5px;">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
         }
 
         // ==================== MUSCLE GROUPS MANAGEMENT ====================
@@ -1248,6 +1663,7 @@
         }
 
         function selectMuscle(muscleId) {
+            vibrate();
             if (currentMuscle === muscleId) {
                 currentMuscle = null;
                 document.getElementById('exerciseArea').innerHTML = '';
@@ -1260,6 +1676,7 @@
         }
 
         function addMuscleGroup() {
+            vibrate();
             const nameInput = document.getElementById('newMuscleName');
             const iconInput = document.getElementById('newMuscleIcon');
             
@@ -1286,12 +1703,12 @@
         }
 
         function deleteMuscleGroup(muscleId) {
+            vibrate();
             if (!confirm(`Διαγραφή μυϊκής ομάδας "${getMuscleById(muscleId).name}";`)) return;
             
             muscleGroups = muscleGroups.filter(m => m.id !== muscleId);
             localStorage.setItem('muscleGroups', JSON.stringify(muscleGroups));
             
-            // Clean up related data
             delete lockedExercises[muscleId];
             delete currentSessionData[muscleId];
             activeMusclesThisSession.delete(muscleId);
@@ -1307,6 +1724,7 @@
         }
 
         function resetMuscleGroups() {
+            vibrate();
             if (confirm('Επαναφορά στις αρχικές μυϊκές ομάδες;')) {
                 muscleGroups = JSON.parse(JSON.stringify(defaultMuscleGroups));
                 localStorage.setItem('muscleGroups', JSON.stringify(muscleGroups));
@@ -1331,16 +1749,14 @@
             const area = document.getElementById('exerciseArea');
             const muscle = getMuscleById(muscleId);
             
-            // Initialize session data for this muscle if not exists
             if (!currentSessionData[muscleId]) {
                 currentSessionData[muscleId] = muscle.isCardio ? { minutes: '', notes: '' } : [];
                 
-                // Add locked exercises for this muscle
                 if (lockedExercises[muscleId] && !muscle.isCardio) {
                     lockedExercises[muscleId].forEach(locked => {
                         currentSessionData[muscleId].push({
                             ...JSON.parse(JSON.stringify(locked)),
-                            sets: locked.sets.map(s => ({ weight: '', reps: '' })) // Empty sets for new session
+                            sets: locked.sets.map(s => ({ weight: '', reps: '' }))
                         });
                     });
                 }
@@ -1353,10 +1769,10 @@
                         <div class="walking-input">
                             <span>Λεπτά:</span>
                             <input type="number" id="cardioMinutes" value="${currentSessionData[muscleId]?.minutes || ''}" 
-                                   placeholder="0" onchange="updateCardio('${muscleId}')">
+                                   placeholder="0" oninput="updateCardio('${muscleId}')">
                         </div>
                         <div class="exercise-notes" style="margin-top:15px;">
-                            <textarea placeholder="Σχόλια..." onchange="updateCardioNotes('${muscleId}', this.value)">${currentSessionData[muscleId]?.notes || ''}</textarea>
+                            <textarea placeholder="Σχόλια..." oninput="updateCardioNotes('${muscleId}', this.value)">${currentSessionData[muscleId]?.notes || ''}</textarea>
                         </div>
                     </div>
                 `;
@@ -1380,12 +1796,12 @@
                         </div>
                     </div>
                     ${settings.showVolume && muscleVolume > 0 ? `
-                    <div class="total-volume-card">
+                    <div class="total-volume-card" id="muscleVolumeCard-${muscleId}">
                         <h3>📊 Volume - ${muscle.name}</h3>
                         <div class="big-number">${formatVolume(muscleVolume)}</div>
                         <div class="unit">kg × επαναλήψεις</div>
                     </div>
-                    ` : ''}
+                    ` : `<div id="muscleVolumeCard-${muscleId}"></div>`}
                 </div>
             `;
 
@@ -1419,10 +1835,12 @@
                                 <div class="set-number">${setIndex + 1}</div>
                                 <input type="number" class="set-input" placeholder="Κιλά" 
                                        value="${set.weight || ''}"
-                                       onchange="updateSet('${muscleId}', ${index}, ${setIndex}, 'weight', this.value)">
+                                       id="weight-${muscleId}-${index}-${setIndex}"
+                                       oninput="updateSetValue('${muscleId}', ${index}, ${setIndex}, 'weight', this.value)">
                                 <input type="number" class="set-input" placeholder="Επαν." 
                                        value="${set.reps || ''}"
-                                       onchange="updateSet('${muscleId}', ${index}, ${setIndex}, 'reps', this.value)">
+                                       id="reps-${muscleId}-${index}-${setIndex}"
+                                       oninput="updateSetValue('${muscleId}', ${index}, ${setIndex}, 'reps', this.value)">
                                 <button class="delete-set-btn" onclick="deleteSet('${muscleId}', ${index}, ${setIndex})">✕</button>
                             </div>
                         `).join('')}
@@ -1430,12 +1848,12 @@
                     </div>
                     <div class="exercise-notes">
                         <textarea placeholder="Σχόλια για την άσκηση..." 
-                                  onchange="updateExerciseNotes('${muscleId}', ${index}, this.value)">${ex.notes || ''}</textarea>
+                                  oninput="updateExerciseNotes('${muscleId}', ${index}, this.value)">${ex.notes || ''}</textarea>
                     </div>
-                    ${settings.showVolume && exerciseVolume > 0 ? `
-                    <div class="volume-display">
+                    ${settings.showVolume ? `
+                    <div class="volume-display" id="exerciseVolume-${muscleId}-${index}">
                         <div class="volume-label">Volume Άσκησης</div>
-                        <div class="volume-value">${formatVolume(exerciseVolume)} kg</div>
+                        <div class="volume-value">${exerciseVolume > 0 ? formatVolume(exerciseVolume) + ' kg' : '-'}</div>
                     </div>
                     ` : ''}
                 </div>
@@ -1443,6 +1861,7 @@
         }
 
         function addExercise(muscleId) {
+            vibrate();
             const input = document.getElementById(`newExercise-${muscleId}`);
             const name = input.value.trim();
             
@@ -1472,10 +1891,10 @@
         }
 
         function deleteExercise(muscleId, index) {
+            vibrate();
             if (confirm('Διαγραφή άσκησης;')) {
                 const exercise = currentSessionData[muscleId][index];
                 
-                // Remove from locked if exists
                 if (lockedExercises[muscleId]) {
                     lockedExercises[muscleId] = lockedExercises[muscleId].filter(ex => ex.id !== exercise.id);
                     saveLockedExercises();
@@ -1488,6 +1907,7 @@
         }
 
         function toggleLock(muscleId, index) {
+            vibrate();
             const exercise = currentSessionData[muscleId][index];
             exercise.locked = !exercise.locked;
 
@@ -1513,12 +1933,14 @@
         }
 
         function addSet(muscleId, exerciseIndex) {
+            vibrate();
             currentSessionData[muscleId][exerciseIndex].sets.push({ weight: '', reps: '' });
             activeMusclesThisSession.add(muscleId);
             renderExerciseArea(muscleId);
         }
 
         function deleteSet(muscleId, exerciseIndex, setIndex) {
+            vibrate();
             if (currentSessionData[muscleId][exerciseIndex].sets.length > 1) {
                 currentSessionData[muscleId][exerciseIndex].sets.splice(setIndex, 1);
                 renderExerciseArea(muscleId);
@@ -1526,13 +1948,12 @@
             }
         }
 
-        function updateSet(muscleId, exerciseIndex, setIndex, field, value) {
+        // Νέα συνάρτηση - ΔΕΝ κάνει re-render, μόνο update data
+        function updateSetValue(muscleId, exerciseIndex, setIndex, field, value) {
             currentSessionData[muscleId][exerciseIndex].sets[setIndex][field] = value;
             
-            // Mark this muscle as active if data was entered
             if (value) {
                 activeMusclesThisSession.add(muscleId);
-                renderMuscleGroups();
             }
             
             // Update locked exercise if locked
@@ -1545,12 +1966,46 @@
                 }
             }
             
-            // Debounced refresh for volume
-            clearTimeout(window.volumeTimeout);
-            window.volumeTimeout = setTimeout(() => {
-                renderExerciseArea(muscleId);
-                updateSessionVolume();
-            }, 500);
+            // Update volumes without full re-render
+            updateVolumeDisplays(muscleId, exerciseIndex);
+        }
+
+        function updateVolumeDisplays(muscleId, exerciseIndex) {
+            if (!settings.showVolume) return;
+            
+            // Update exercise volume
+            const exercise = currentSessionData[muscleId][exerciseIndex];
+            const exVolume = calculateExerciseVolume(exercise);
+            const exVolumeEl = document.getElementById(`exerciseVolume-${muscleId}-${exerciseIndex}`);
+            if (exVolumeEl) {
+                exVolumeEl.innerHTML = `
+                    <div class="volume-label">Volume Άσκησης</div>
+                    <div class="volume-value">${exVolume > 0 ? formatVolume(exVolume) + ' kg' : '-'}</div>
+                `;
+            }
+            
+            // Update muscle volume
+            const muscleVolume = calculateMuscleVolume(currentSessionData[muscleId]);
+            const muscle = getMuscleById(muscleId);
+            const muscleVolumeEl = document.getElementById(`muscleVolumeCard-${muscleId}`);
+            if (muscleVolumeEl) {
+                if (muscleVolume > 0) {
+                    muscleVolumeEl.className = 'total-volume-card';
+                    muscleVolumeEl.innerHTML = `
+                        <h3>📊 Volume - ${muscle.name}</h3>
+                        <div class="big-number">${formatVolume(muscleVolume)}</div>
+                        <div class="unit">kg × επαναλήψεις</div>
+                    `;
+                } else {
+                    muscleVolumeEl.innerHTML = '';
+                }
+            }
+            
+            // Update session volume
+            updateSessionVolume();
+            
+            // Update muscle groups indicator
+            renderMuscleGroups();
         }
 
         function updateExerciseNotes(muscleId, exerciseIndex, notes) {
@@ -1598,7 +2053,6 @@
             let totalVolume = 0;
             let muscleVolumes = [];
 
-            // Only calculate for muscles with actual data
             activeMusclesThisSession.forEach(muscleId => {
                 const data = currentSessionData[muscleId];
                 const muscle = getMuscleById(muscleId);
@@ -1641,9 +2095,9 @@
 
         // ==================== SAVE WORKOUT ====================
         function saveWorkout() {
+            vibrate([100, 50, 100]);
             const duration = document.getElementById('workoutDuration').value;
             
-            // Check only muscles that were actually worked this session
             let hasExercises = false;
             const muscleGroupsUsed = [];
             const exercisesToSave = {};
@@ -1657,7 +2111,6 @@
                     muscleGroupsUsed.push(muscleId);
                     exercisesToSave[muscleId] = { minutes: data.minutes, notes: data.notes || '' };
                 } else if (Array.isArray(data) && data.length > 0) {
-                    // Only include exercises with actual data entered
                     const exercisesWithData = data.filter(ex => 
                         ex.sets.some(set => set.weight || set.reps)
                     );
@@ -1690,7 +2143,6 @@
             workoutHistory.unshift(workout);
             localStorage.setItem('workoutHistory', JSON.stringify(workoutHistory));
 
-            // Clear session data
             currentSessionData = {};
             activeMusclesThisSession.clear();
 
@@ -1787,6 +2239,7 @@
         }
 
         function deleteWorkout(index) {
+            vibrate();
             if (confirm('Διαγραφή προπόνησης;')) {
                 workoutHistory.splice(index, 1);
                 localStorage.setItem('workoutHistory', JSON.stringify(workoutHistory));
@@ -1795,6 +2248,7 @@
         }
 
         function editWorkout(index) {
+            vibrate();
             editingWorkoutIndex = index;
             const workout = workoutHistory[index];
             
@@ -1865,6 +2319,7 @@
         }
 
         function saveEditedWorkout() {
+            vibrate();
             if (editingWorkoutIndex === null) return;
             
             const workout = workoutHistory[editingWorkoutIndex];
@@ -1952,6 +2407,7 @@
         }
 
         function changeMonth(delta) {
+            vibrate();
             currentMonth += delta;
             if (currentMonth > 11) {
                 currentMonth = 0;
@@ -1964,6 +2420,7 @@
         }
 
         function openDayModal(dateStr) {
+            vibrate();
             selectedDate = dateStr;
             const parts = dateStr.split('-');
             const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
@@ -1983,6 +2440,7 @@
         }
 
         function addQuickPlan(text) {
+            vibrate();
             const input = document.getElementById('planShort');
             if (input.value && !input.value.endsWith('+') && !input.value.endsWith(' ')) {
                 input.value += ' + ';
@@ -1991,6 +2449,7 @@
         }
 
         function savePlan() {
+            vibrate();
             if (!selectedDate) return;
             
             const short = document.getElementById('planShort').value.trim();
@@ -2008,6 +2467,7 @@
         }
 
         function deletePlan() {
+            vibrate();
             if (!selectedDate) return;
             delete calendarPlans[selectedDate];
             localStorage.setItem('calendarPlans', JSON.stringify(calendarPlans));
@@ -2042,6 +2502,7 @@
 
         // ==================== SETTINGS ====================
         function toggleSetting(setting) {
+            vibrate();
             settings[setting] = !settings[setting];
             const toggle = document.getElementById(`${setting}Toggle`);
             if (toggle) {
@@ -2059,6 +2520,7 @@
         }
 
         function changeColor(color) {
+            vibrate();
             settings.primaryColor = color;
             document.querySelectorAll('.color-option').forEach(opt => {
                 opt.classList.toggle('active', opt.dataset.color === color);
@@ -2081,11 +2543,13 @@
         }
 
         function exportData() {
+            vibrate();
             const data = {
                 muscleGroups,
                 lockedExercises,
                 workoutHistory,
                 calendarPlans,
+                timerPresets,
                 settings,
                 exportDate: new Date().toISOString()
             };
@@ -2099,6 +2563,7 @@
         }
 
         function clearAllData() {
+            vibrate([100, 50, 100, 50, 100]);
             if (confirm('⚠️ Διαγραφή ΟΛΩΝ των δεδομένων;\n\nΑυτή η ενέργεια δεν αναιρείται!')) {
                 if (confirm('Είστε απόλυτα σίγουροι;')) {
                     localStorage.clear();

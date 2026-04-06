@@ -15,22 +15,25 @@
         :root {
             --primary: #6c5ce7;
             --primary-dark: #5b4cdb;
+            --primary-light: #a29bfe;
             --secondary: #00cec9;
             --danger: #ff7675;
             --warning: #fdcb6e;
             --success: #00b894;
             --dark: #2d3436;
-            --light: #dfe6e9;
-            --bg: #0a0a0f;
-            --card-bg: #16161f;
-            --text: #ffffff;
-            --text-muted: #a0a0a0;
+            --light: #f8f9fa;
+            --bg: #ffffff;
+            --card-bg: #ffffff;
+            --text: #2d3436;
+            --text-muted: #636e72;
+            --border: #e0e0e0;
             --border-radius: 16px;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg);
+            background: var(--light);
             color: var(--text);
             min-height: 100vh;
             padding-bottom: 100px;
@@ -38,45 +41,51 @@
 
         .header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            padding: 20px;
+            padding: 25px 20px;
             text-align: center;
             position: sticky;
             top: 0;
             z-index: 100;
+            box-shadow: var(--shadow);
         }
 
         .header h1 {
             font-size: 1.8rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
 
         .tabs {
             display: flex;
             justify-content: center;
-            gap: 5px;
+            gap: 8px;
             padding: 15px;
-            background: var(--card-bg);
+            background: var(--bg);
             flex-wrap: wrap;
+            border-bottom: 1px solid var(--border);
         }
 
         .tab-btn {
-            padding: 12px 20px;
-            border: none;
-            background: transparent;
+            padding: 12px 24px;
+            border: 2px solid var(--border);
+            background: var(--bg);
             color: var(--text-muted);
             cursor: pointer;
             border-radius: 25px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            font-weight: 500;
             transition: all 0.3s;
         }
 
         .tab-btn.active {
             background: var(--primary);
+            border-color: var(--primary);
             color: white;
         }
 
         .tab-btn:hover:not(.active) {
-            background: rgba(108, 92, 231, 0.2);
+            border-color: var(--primary);
+            color: var(--primary);
         }
 
         .tab-content {
@@ -96,49 +105,64 @@
 
         .muscle-groups {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
             margin-bottom: 20px;
         }
 
         .muscle-btn {
-            padding: 15px 10px;
-            border: 2px solid var(--primary);
-            background: transparent;
-            color: var(--primary);
+            padding: 20px 15px;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
             border-radius: var(--border-radius);
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 1rem;
+            font-weight: 500;
             transition: all 0.3s;
             text-align: center;
             position: relative;
+            box-shadow: var(--shadow);
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .muscle-btn .emoji {
+            font-size: 1.5rem;
         }
 
         .muscle-btn.active {
             background: var(--primary);
+            border-color: var(--primary);
             color: white;
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
         .muscle-btn:hover:not(.active) {
-            background: rgba(108, 92, 231, 0.2);
+            border-color: var(--primary);
+            background: rgba(108, 92, 231, 0.05);
         }
 
         .muscle-btn .delete-muscle {
             position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 22px;
-            height: 22px;
+            top: -10px;
+            right: -10px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
             background: var(--danger);
             color: white;
-            border: none;
-            font-size: 12px;
+            border: 2px solid white;
+            font-size: 14px;
             cursor: pointer;
             display: none;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .muscle-btn:hover .delete-muscle {
@@ -150,16 +174,18 @@
             border-radius: var(--border-radius);
             padding: 20px;
             margin-bottom: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
 
         .card-title {
             font-size: 1.2rem;
             margin-bottom: 15px;
-            color: var(--secondary);
+            color: var(--primary);
             display: flex;
             align-items: center;
             gap: 10px;
+            font-weight: 600;
         }
 
         .form-group {
@@ -171,14 +197,15 @@
             margin-bottom: 8px;
             color: var(--text-muted);
             font-size: 0.9rem;
+            font-weight: 500;
         }
 
         .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid rgba(255,255,255,0.1);
+            border: 2px solid var(--border);
             border-radius: 12px;
-            background: rgba(255,255,255,0.05);
+            background: var(--bg);
             color: var(--text);
             font-size: 1rem;
             transition: border-color 0.3s;
@@ -195,6 +222,7 @@
             border-radius: 12px;
             cursor: pointer;
             font-size: 1rem;
+            font-weight: 500;
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
@@ -227,8 +255,9 @@
         }
 
         .btn-secondary {
-            background: rgba(255,255,255,0.1);
+            background: var(--light);
             color: var(--text);
+            border: 2px solid var(--border);
         }
 
         .btn-sm {
@@ -237,7 +266,7 @@
         }
 
         .exercise-item {
-            background: rgba(255,255,255,0.05);
+            background: var(--light);
             border-radius: 12px;
             padding: 15px;
             margin-bottom: 15px;
@@ -256,7 +285,7 @@
         .exercise-name {
             font-size: 1.1rem;
             font-weight: 600;
-            color: var(--secondary);
+            color: var(--primary);
         }
 
         .exercise-actions {
@@ -265,25 +294,27 @@
         }
 
         .lock-btn {
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            border: none;
+            border: 2px solid var(--border);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
+            font-size: 1.1rem;
             transition: all 0.3s;
+            background: var(--bg);
         }
 
         .lock-btn.locked {
             background: var(--success);
+            border-color: var(--success);
             color: white;
         }
 
         .lock-btn.unlocked {
-            background: rgba(255,255,255,0.1);
+            background: var(--bg);
             color: var(--text-muted);
         }
 
@@ -295,36 +326,38 @@
 
         .set-row {
             display: grid;
-            grid-template-columns: 45px 1fr 1fr auto;
-            gap: 8px;
+            grid-template-columns: 50px 1fr 1fr auto;
+            gap: 10px;
             align-items: center;
-            background: rgba(0,0,0,0.2);
-            padding: 10px;
-            border-radius: 8px;
+            background: var(--bg);
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
         }
 
         .set-number {
             background: var(--primary);
             color: white;
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
 
         .set-input {
             width: 100%;
-            padding: 10px;
-            border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg);
             color: var(--text);
             text-align: center;
             font-size: 1rem;
+            font-weight: 500;
         }
 
         .set-input:focus {
@@ -334,74 +367,75 @@
 
         .add-set-btn {
             width: 100%;
-            padding: 10px;
-            background: rgba(108, 92, 231, 0.2);
+            padding: 12px;
+            background: var(--bg);
             border: 2px dashed var(--primary);
-            border-radius: 8px;
+            border-radius: 10px;
             color: var(--primary);
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            font-weight: 500;
             transition: all 0.3s;
         }
 
         .add-set-btn:hover {
-            background: rgba(108, 92, 231, 0.4);
+            background: rgba(108, 92, 231, 0.1);
         }
 
         .exercise-notes {
-            margin-top: 10px;
-            padding: 10px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 8px;
+            margin-top: 12px;
         }
 
         .exercise-notes textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg);
             color: var(--text);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             resize: vertical;
             min-height: 60px;
         }
 
         .volume-display {
-            background: linear-gradient(135deg, rgba(108, 92, 231, 0.3), rgba(0, 206, 201, 0.3));
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(0, 206, 201, 0.1));
             border-radius: 10px;
             padding: 12px;
             margin-top: 12px;
             text-align: center;
+            border: 1px solid var(--border);
         }
 
         .volume-display .volume-label {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             margin-bottom: 5px;
         }
 
         .volume-display .volume-value {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: bold;
-            color: var(--warning);
+            color: var(--primary);
         }
 
         .total-volume-card {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: var(--border-radius);
-            padding: 20px;
+            padding: 25px;
             margin-top: 15px;
             text-align: center;
+            color: white;
         }
 
         .total-volume-card h3 {
             margin-bottom: 10px;
             font-size: 1rem;
+            opacity: 0.9;
         }
 
         .total-volume-card .big-number {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: bold;
         }
 
@@ -415,14 +449,15 @@
             border-radius: var(--border-radius);
             padding: 20px;
             margin-bottom: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
         }
 
         .history-date {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: bold;
-            color: var(--secondary);
-            margin-bottom: 10px;
+            color: var(--text);
+            margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -430,8 +465,15 @@
             gap: 10px;
         }
 
+        .history-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
         .history-duration {
             background: var(--primary);
+            color: white;
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.85rem;
@@ -454,17 +496,18 @@
         }
 
         .muscle-tag {
-            background: rgba(108, 92, 231, 0.3);
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
+            background: rgba(108, 92, 231, 0.15);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
             color: var(--primary);
+            font-weight: 500;
         }
 
         .history-exercise {
-            background: rgba(255,255,255,0.05);
-            padding: 12px;
-            border-radius: 8px;
+            background: var(--light);
+            padding: 15px;
+            border-radius: 10px;
             margin-bottom: 10px;
         }
 
@@ -472,12 +515,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
 
         .history-exercise-name {
             font-weight: 600;
-            color: var(--warning);
+            color: var(--primary);
+            font-size: 1rem;
         }
 
         .history-exercise-volume {
@@ -493,54 +537,61 @@
         }
 
         .history-set {
-            background: rgba(0,0,0,0.3);
-            padding: 5px 10px;
-            border-radius: 5px;
+            background: var(--bg);
+            padding: 6px 12px;
+            border-radius: 8px;
             font-size: 0.85rem;
+            border: 1px solid var(--border);
         }
 
         .history-notes {
-            margin-top: 8px;
-            padding: 8px;
-            background: rgba(0,0,0,0.2);
-            border-radius: 5px;
-            font-size: 0.85rem;
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(108, 92, 231, 0.05);
+            border-radius: 8px;
+            font-size: 0.9rem;
             color: var(--text-muted);
             font-style: italic;
+            border-left: 3px solid var(--primary);
         }
 
         .history-muscle-section {
             margin-bottom: 15px;
             padding: 15px;
-            background: rgba(108, 92, 231, 0.1);
-            border-radius: 10px;
+            background: var(--light);
+            border-radius: 12px;
+            border: 1px solid var(--border);
         }
 
         .history-muscle-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid var(--border);
         }
 
         .history-muscle-name {
             font-weight: bold;
-            color: var(--secondary);
+            color: var(--text);
+            font-size: 1rem;
         }
 
         .history-muscle-volume {
             background: var(--success);
-            padding: 3px 10px;
-            border-radius: 10px;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
             font-size: 0.8rem;
+            font-weight: 500;
         }
 
         .calendar-container {
             background: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 20px;
+            box-shadow: var(--shadow);
         }
 
         .calendar-header {
@@ -550,26 +601,15 @@
             margin-bottom: 20px;
         }
 
-        .calendar-nav {
-            display: flex;
-            gap: 10px;
-        }
-
-        .calendar-nav button {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: none;
-            background: var(--primary);
-            color: white;
-            cursor: pointer;
+        .calendar-header h2 {
+            color: var(--text);
             font-size: 1.2rem;
         }
 
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 5px;
+            gap: 8px;
         }
 
         .calendar-day-name {
@@ -577,6 +617,7 @@
             padding: 10px;
             color: var(--text-muted);
             font-size: 0.85rem;
+            font-weight: 500;
         }
 
         .calendar-day {
@@ -585,34 +626,38 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
-            background: rgba(255,255,255,0.05);
+            background: var(--light);
             transition: all 0.3s;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            font-weight: 500;
             position: relative;
+            border: 2px solid transparent;
         }
 
         .calendar-day:hover {
-            background: rgba(108, 92, 231, 0.3);
+            background: rgba(108, 92, 231, 0.15);
+            border-color: var(--primary);
         }
 
         .calendar-day.today {
             border: 2px solid var(--secondary);
+            background: rgba(0, 206, 201, 0.1);
         }
 
         .calendar-day.has-plan {
-            background: rgba(108, 92, 231, 0.4);
+            background: rgba(108, 92, 231, 0.2);
         }
 
         .calendar-day.has-plan::after {
             content: '';
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             background: var(--success);
             border-radius: 50%;
             position: absolute;
-            bottom: 5px;
+            bottom: 6px;
         }
 
         .calendar-day.other-month {
@@ -626,7 +671,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.5);
             z-index: 1000;
             align-items: center;
             justify-content: center;
@@ -645,6 +690,7 @@
             width: 100%;
             max-height: 85vh;
             overflow-y: auto;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
         }
 
         .modal-header {
@@ -654,15 +700,23 @@
             margin-bottom: 20px;
         }
 
+        .modal-header h3 {
+            color: var(--text);
+            font-size: 1.2rem;
+        }
+
         .modal-close {
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: none;
             background: var(--danger);
             color: white;
             cursor: pointer;
             font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .settings-section {
@@ -672,9 +726,10 @@
         .settings-title {
             font-size: 1.1rem;
             margin-bottom: 15px;
-            color: var(--secondary);
+            color: var(--primary);
             padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 2px solid var(--border);
+            font-weight: 600;
         }
 
         .setting-item {
@@ -682,17 +737,18 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid var(--border);
         }
 
         .setting-label {
             color: var(--text);
+            font-weight: 500;
         }
 
         .toggle-switch {
             width: 55px;
             height: 28px;
-            background: rgba(255,255,255,0.1);
+            background: var(--border);
             border-radius: 14px;
             position: relative;
             cursor: pointer;
@@ -713,6 +769,7 @@
             top: 3px;
             left: 3px;
             transition: transform 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .toggle-switch.active::after {
@@ -725,12 +782,13 @@
         }
 
         .color-option {
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
             border: 3px solid transparent;
             transition: transform 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .color-option:hover {
@@ -738,7 +796,7 @@
         }
 
         .color-option.active {
-            border-color: white;
+            border-color: var(--text);
         }
 
         .empty-state {
@@ -757,6 +815,7 @@
             border-radius: var(--border-radius);
             padding: 20px;
             margin-bottom: 20px;
+            box-shadow: var(--shadow);
         }
 
         .duration-input-group {
@@ -770,45 +829,54 @@
             padding: 15px;
             border: none;
             border-radius: 12px;
-            background: rgba(255,255,255,0.2);
-            color: white;
+            background: rgba(255,255,255,0.9);
+            color: var(--text);
             font-size: 1.2rem;
             text-align: center;
+            font-weight: 500;
         }
 
         .duration-input::placeholder {
-            color: rgba(255,255,255,0.7);
+            color: var(--text-muted);
         }
 
         .walking-input {
             display: flex;
             gap: 10px;
             align-items: center;
-            background: rgba(255,255,255,0.05);
+            background: var(--light);
             padding: 15px;
             border-radius: 12px;
+        }
+
+        .walking-input span {
+            font-weight: 500;
         }
 
         .walking-input input {
             flex: 1;
             padding: 12px;
-            border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
-            background: rgba(255,255,255,0.05);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg);
             color: var(--text);
             text-align: center;
             font-size: 1.1rem;
+            font-weight: 500;
         }
 
         .delete-set-btn {
-            width: 30px;
-            height: 30px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             border: none;
             background: var(--danger);
             color: white;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .quick-add {
@@ -819,18 +887,20 @@
         }
 
         .quick-add-btn {
-            padding: 10px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
+            padding: 12px;
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 10px;
             color: var(--text);
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 500;
             transition: all 0.3s;
         }
 
         .quick-add-btn:hover {
-            background: rgba(108, 92, 231, 0.3);
+            background: rgba(108, 92, 231, 0.1);
+            border-color: var(--primary);
         }
 
         .add-muscle-form {
@@ -838,52 +908,70 @@
             gap: 10px;
             margin-top: 15px;
             padding-top: 15px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 2px solid var(--border);
         }
 
         .add-muscle-form input {
             flex: 1;
-            padding: 10px 15px;
-            border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            background: rgba(255,255,255,0.05);
+            padding: 12px 15px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg);
             color: var(--text);
+            font-size: 1rem;
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
+            gap: 12px;
             margin-top: 15px;
         }
 
         .stat-card {
-            background: rgba(255,255,255,0.05);
+            background: var(--light);
             padding: 15px;
             border-radius: 12px;
             text-align: center;
+            border: 1px solid var(--border);
         }
 
         .stat-card .stat-value {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: bold;
-            color: var(--secondary);
+            color: var(--primary);
         }
 
         .stat-card .stat-label {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             margin-top: 5px;
         }
 
+        .active-indicator {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 12px;
+            height: 12px;
+            background: var(--success);
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
         @media (max-width: 600px) {
             .set-row {
-                grid-template-columns: 40px 1fr 1fr auto;
-                gap: 5px;
+                grid-template-columns: 45px 1fr 1fr auto;
+                gap: 8px;
             }
             
             .muscle-groups {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .muscle-btn {
+                min-height: 90px;
+                padding: 15px 10px;
             }
 
             .btn {
@@ -914,7 +1002,7 @@
     <div id="workout" class="tab-content active">
         <div class="workout-duration">
             <div class="form-group" style="margin-bottom:0;">
-                <label style="color:white;">⏱️ Διάρκεια Προπόνησης (λεπτά)</label>
+                <label style="color:white; font-weight:600;">⏱️ Διάρκεια Προπόνησης (λεπτά)</label>
                 <div class="duration-input-group">
                     <input type="number" id="workoutDuration" class="duration-input" placeholder="π.χ. 60">
                 </div>
@@ -926,8 +1014,8 @@
             <div class="muscle-groups" id="muscleGroupsContainer"></div>
             <div class="add-muscle-form">
                 <input type="text" id="newMuscleName" placeholder="Νέα μυϊκή ομάδα...">
-                <input type="text" id="newMuscleIcon" placeholder="Emoji" maxlength="2" style="width:60px; text-align:center;">
-                <button class="btn btn-primary" onclick="addMuscleGroup()">+</button>
+                <input type="text" id="newMuscleIcon" placeholder="🔥" maxlength="2" style="width:70px; text-align:center;">
+                <button class="btn btn-primary" onclick="addMuscleGroup()">➕</button>
             </div>
         </div>
 
@@ -936,7 +1024,7 @@
         <div id="sessionVolume"></div>
 
         <div style="text-align:center; margin-top:20px;">
-            <button class="btn btn-success" style="width:100%; padding:18px;" onclick="saveWorkout()">
+            <button class="btn btn-success" style="width:100%; padding:18px; font-size:1.1rem;" onclick="saveWorkout()">
                 💾 Αποθήκευση Προπόνησης
             </button>
         </div>
@@ -972,16 +1060,13 @@
             <div class="settings-section">
                 <div class="settings-title">🎨 Εμφάνιση</div>
                 <div class="setting-item">
-                    <span class="setting-label">Σκούρο Θέμα</span>
-                    <div class="toggle-switch active" id="darkModeToggle" onclick="toggleSetting('darkMode')"></div>
-                </div>
-                <div class="setting-item">
                     <span class="setting-label">Χρώμα Θέματος</span>
                     <div class="color-options">
                         <div class="color-option active" style="background:#6c5ce7;" data-color="#6c5ce7" onclick="changeColor('#6c5ce7')"></div>
                         <div class="color-option" style="background:#00b894;" data-color="#00b894" onclick="changeColor('#00b894')"></div>
                         <div class="color-option" style="background:#e17055;" data-color="#e17055" onclick="changeColor('#e17055')"></div>
                         <div class="color-option" style="background:#0984e3;" data-color="#0984e3" onclick="changeColor('#0984e3')"></div>
+                        <div class="color-option" style="background:#fd79a8;" data-color="#fd79a8" onclick="changeColor('#fd79a8')"></div>
                     </div>
                 </div>
             </div>
@@ -1006,6 +1091,9 @@
                 <div class="settings-title">📦 Δεδομένα</div>
                 <button class="btn btn-warning" onclick="exportData()" style="width:100%; margin-bottom:10px;">
                     📤 Εξαγωγή Δεδομένων
+                </button>
+                <button class="btn btn-secondary" onclick="resetMuscleGroups()" style="width:100%; margin-bottom:10px;">
+                    🔄 Επαναφορά Μυϊκών Ομάδων
                 </button>
                 <button class="btn btn-danger" onclick="clearAllData()" style="width:100%;">
                     🗑️ Διαγραφή Όλων
@@ -1054,30 +1142,32 @@
     <script>
         // ==================== DEFAULT MUSCLE GROUPS ====================
         const defaultMuscleGroups = [
-            { id: 'shoulders', name: 'Ώμοι', icon: '💪', isDefault: true },
-            { id: 'chest', name: 'Στήθος', icon: '🫁', isDefault: true },
-            { id: 'back', name: 'Πλάτη', icon: '🔙', isDefault: true },
-            { id: 'biceps', name: 'Δικέφαλα', icon: '💪', isDefault: true },
-            { id: 'triceps', name: 'Τρικέφαλα', icon: '💪', isDefault: true },
-            { id: 'legs', name: 'Πόδια', icon: '🦵', isDefault: true },
-            { id: 'abs', name: 'Κοιλιακοί', icon: '🎯', isDefault: true },
-            { id: 'crossfit', name: 'CrossFit', icon: '🔥', isDefault: true },
-            { id: 'walking', name: 'Περπάτημα', icon: '🚶', isDefault: true, isCardio: true }
+            { id: 'shoulders', name: 'Ώμοι', icon: '💪' },
+            { id: 'chest', name: 'Στήθος', icon: '🫁' },
+            { id: 'back', name: 'Πλάτη', icon: '🔙' },
+            { id: 'biceps', name: 'Δικέφαλα', icon: '💪' },
+            { id: 'triceps', name: 'Τρικέφαλα', icon: '💪' },
+            { id: 'legs', name: 'Πόδια', icon: '🦵' },
+            { id: 'abs', name: 'Κοιλιακοί', icon: '🎯' },
+            { id: 'crossfit', name: 'CrossFit', icon: '🔥' },
+            { id: 'walking', name: 'Περπάτημα', icon: '🚶', isCardio: true }
         ];
 
         // ==================== DATA STORAGE ====================
-        let muscleGroups = JSON.parse(localStorage.getItem('muscleGroups')) || [...defaultMuscleGroups];
+        let muscleGroups = JSON.parse(localStorage.getItem('muscleGroups')) || JSON.parse(JSON.stringify(defaultMuscleGroups));
         let lockedExercises = JSON.parse(localStorage.getItem('lockedExercises')) || {};
-        let todayExercises = JSON.parse(localStorage.getItem('todayExercises')) || {};
         let workoutHistory = JSON.parse(localStorage.getItem('workoutHistory')) || [];
         let calendarPlans = JSON.parse(localStorage.getItem('calendarPlans')) || {};
         let settings = JSON.parse(localStorage.getItem('gymSettings')) || {
-            darkMode: true,
             autoSave: false,
             notifications: true,
             showVolume: true,
             primaryColor: '#6c5ce7'
         };
+
+        // ΣΗΜΑΝΤΙΚΟ: Ξεχωριστό tracking για τη σημερινή προπόνηση
+        let currentSessionData = {};
+        let activeMusclesThisSession = new Set();
 
         let currentMuscle = null;
         let currentMonth = new Date().getMonth();
@@ -1128,7 +1218,6 @@
             renderHistory();
             renderCalendar();
             applySettings();
-            updateSessionVolume();
         });
 
         function initTabs() {
@@ -1148,8 +1237,10 @@
             container.innerHTML = muscleGroups.map(muscle => `
                 <button class="muscle-btn ${currentMuscle === muscle.id ? 'active' : ''}" 
                         data-muscle="${muscle.id}" onclick="selectMuscle('${muscle.id}')">
-                    ${muscle.icon} ${muscle.name}
-                    ${!muscle.isDefault ? `<span class="delete-muscle" onclick="event.stopPropagation(); deleteMuscleGroup('${muscle.id}')">✕</span>` : ''}
+                    ${activeMusclesThisSession.has(muscle.id) ? '<span class="active-indicator"></span>' : ''}
+                    <span class="emoji">${muscle.icon}</span>
+                    <span>${muscle.name}</span>
+                    <span class="delete-muscle" onclick="event.stopPropagation(); deleteMuscleGroup('${muscle.id}')">✕</span>
                 </button>
             `).join('');
             
@@ -1185,8 +1276,7 @@
             muscleGroups.push({
                 id: id,
                 name: name,
-                icon: icon,
-                isDefault: false
+                icon: icon
             });
 
             localStorage.setItem('muscleGroups', JSON.stringify(muscleGroups));
@@ -1196,16 +1286,16 @@
         }
 
         function deleteMuscleGroup(muscleId) {
-            if (!confirm('Διαγραφή μυϊκής ομάδας;')) return;
+            if (!confirm(`Διαγραφή μυϊκής ομάδας "${getMuscleById(muscleId).name}";`)) return;
             
             muscleGroups = muscleGroups.filter(m => m.id !== muscleId);
             localStorage.setItem('muscleGroups', JSON.stringify(muscleGroups));
             
             // Clean up related data
             delete lockedExercises[muscleId];
-            delete todayExercises[muscleId];
+            delete currentSessionData[muscleId];
+            activeMusclesThisSession.delete(muscleId);
             saveLockedExercises();
-            saveTodayExercises();
             
             if (currentMuscle === muscleId) {
                 currentMuscle = null;
@@ -1216,9 +1306,18 @@
             updateSessionVolume();
         }
 
+        function resetMuscleGroups() {
+            if (confirm('Επαναφορά στις αρχικές μυϊκές ομάδες;')) {
+                muscleGroups = JSON.parse(JSON.stringify(defaultMuscleGroups));
+                localStorage.setItem('muscleGroups', JSON.stringify(muscleGroups));
+                renderMuscleGroups();
+            }
+        }
+
         function updateQuickAddButtons() {
             const container = document.getElementById('quickAddButtons');
-            container.innerHTML = muscleGroups.map(muscle => `
+            if (!container) return;
+            container.innerHTML = muscleGroups.slice(0, 8).map(muscle => `
                 <button class="quick-add-btn" onclick="addQuickPlan('${muscle.name.substring(0, 3).toUpperCase()}')">
                     ${muscle.icon} ${muscle.name}
                 </button>
@@ -1232,42 +1331,39 @@
             const area = document.getElementById('exerciseArea');
             const muscle = getMuscleById(muscleId);
             
+            // Initialize session data for this muscle if not exists
+            if (!currentSessionData[muscleId]) {
+                currentSessionData[muscleId] = muscle.isCardio ? { minutes: '', notes: '' } : [];
+                
+                // Add locked exercises for this muscle
+                if (lockedExercises[muscleId] && !muscle.isCardio) {
+                    lockedExercises[muscleId].forEach(locked => {
+                        currentSessionData[muscleId].push({
+                            ...JSON.parse(JSON.stringify(locked)),
+                            sets: locked.sets.map(s => ({ weight: '', reps: '' })) // Empty sets for new session
+                        });
+                    });
+                }
+            }
+            
             if (muscle.isCardio) {
                 area.innerHTML = `
                     <div class="card">
                         <div class="card-title">${muscle.icon} ${muscle.name}</div>
                         <div class="walking-input">
                             <span>Λεπτά:</span>
-                            <input type="number" id="walkingMinutes" value="${todayExercises[muscleId]?.minutes || ''}" 
-                                   placeholder="0" onchange="updateWalking('${muscleId}')">
+                            <input type="number" id="cardioMinutes" value="${currentSessionData[muscleId]?.minutes || ''}" 
+                                   placeholder="0" onchange="updateCardio('${muscleId}')">
                         </div>
                         <div class="exercise-notes" style="margin-top:15px;">
-                            <textarea placeholder="Σχόλια..." onchange="updateWalkingNotes('${muscleId}', this.value)">${todayExercises[muscleId]?.notes || ''}</textarea>
+                            <textarea placeholder="Σχόλια..." onchange="updateCardioNotes('${muscleId}', this.value)">${currentSessionData[muscleId]?.notes || ''}</textarea>
                         </div>
                     </div>
                 `;
                 return;
             }
 
-            // Initialize muscle group if not exists
-            if (!todayExercises[muscleId]) {
-                todayExercises[muscleId] = [];
-            }
-
-            // Add locked exercises if not already added
-            if (lockedExercises[muscleId]) {
-                lockedExercises[muscleId].forEach(locked => {
-                    const exists = todayExercises[muscleId].some(ex => ex.id === locked.id);
-                    if (!exists) {
-                        todayExercises[muscleId].push({
-                            ...locked,
-                            sets: locked.sets.map(s => ({...s}))
-                        });
-                    }
-                });
-            }
-
-            const muscleVolume = calculateMuscleVolume(todayExercises[muscleId]);
+            const muscleVolume = calculateMuscleVolume(currentSessionData[muscleId]);
 
             let html = `
                 <div class="card">
@@ -1278,13 +1374,14 @@
                     <div class="form-group" style="margin-top:20px;">
                         <label>➕ Προσθήκη Νέας Άσκησης</label>
                         <div style="display:flex; gap:10px;">
-                            <input type="text" id="newExercise-${muscleId}" placeholder="Όνομα άσκησης...">
-                            <button class="btn btn-primary" onclick="addExercise('${muscleId}')">+</button>
+                            <input type="text" id="newExercise-${muscleId}" placeholder="Όνομα άσκησης..." 
+                                   onkeypress="if(event.key==='Enter')addExercise('${muscleId}')">
+                            <button class="btn btn-primary" onclick="addExercise('${muscleId}')">➕</button>
                         </div>
                     </div>
-                    ${settings.showVolume ? `
+                    ${settings.showVolume && muscleVolume > 0 ? `
                     <div class="total-volume-card">
-                        <h3>📊 Συνολικό Volume - ${muscle.name}</h3>
+                        <h3>📊 Volume - ${muscle.name}</h3>
                         <div class="big-number">${formatVolume(muscleVolume)}</div>
                         <div class="unit">kg × επαναλήψεις</div>
                     </div>
@@ -1296,11 +1393,12 @@
         }
 
         function renderExercises(muscleId) {
-            if (!todayExercises[muscleId] || todayExercises[muscleId].length === 0) {
+            const exercises = currentSessionData[muscleId];
+            if (!exercises || exercises.length === 0) {
                 return '<div class="empty-state"><div class="empty-state-icon">🏋️</div><p>Δεν υπάρχουν ασκήσεις. Προσθέστε μία!</p></div>';
             }
 
-            return todayExercises[muscleId].map((ex, index) => {
+            return exercises.map((ex, index) => {
                 const exerciseVolume = calculateExerciseVolume(ex);
                 return `
                 <div class="exercise-item" data-index="${index}">
@@ -1309,7 +1407,7 @@
                         <div class="exercise-actions">
                             <button class="lock-btn ${ex.locked ? 'locked' : 'unlocked'}" 
                                     onclick="toggleLock('${muscleId}', ${index})" 
-                                    title="${ex.locked ? 'Κλειδωμένο' : 'Ξεκλείδωτο'}">
+                                    title="${ex.locked ? 'Κλειδωμένο - θα εμφανίζεται πάντα' : 'Ξεκλείδωτο'}">
                                 ${ex.locked ? '🔒' : '🔓'}
                             </button>
                             <button class="btn btn-danger btn-sm" onclick="deleteExercise('${muscleId}', ${index})">🗑️</button>
@@ -1334,7 +1432,7 @@
                         <textarea placeholder="Σχόλια για την άσκηση..." 
                                   onchange="updateExerciseNotes('${muscleId}', ${index}, this.value)">${ex.notes || ''}</textarea>
                     </div>
-                    ${settings.showVolume ? `
+                    ${settings.showVolume && exerciseVolume > 0 ? `
                     <div class="volume-display">
                         <div class="volume-label">Volume Άσκησης</div>
                         <div class="volume-value">${formatVolume(exerciseVolume)} kg</div>
@@ -1353,8 +1451,8 @@
                 return;
             }
 
-            if (!todayExercises[muscleId]) {
-                todayExercises[muscleId] = [];
+            if (!currentSessionData[muscleId]) {
+                currentSessionData[muscleId] = [];
             }
 
             const newExercise = {
@@ -1365,15 +1463,17 @@
                 sets: [{ weight: '', reps: '' }]
             };
 
-            todayExercises[muscleId].push(newExercise);
-            saveTodayExercises();
+            currentSessionData[muscleId].push(newExercise);
+            activeMusclesThisSession.add(muscleId);
+            
             renderExerciseArea(muscleId);
+            renderMuscleGroups();
             updateSessionVolume();
         }
 
         function deleteExercise(muscleId, index) {
             if (confirm('Διαγραφή άσκησης;')) {
-                const exercise = todayExercises[muscleId][index];
+                const exercise = currentSessionData[muscleId][index];
                 
                 // Remove from locked if exists
                 if (lockedExercises[muscleId]) {
@@ -1381,15 +1481,14 @@
                     saveLockedExercises();
                 }
 
-                todayExercises[muscleId].splice(index, 1);
-                saveTodayExercises();
+                currentSessionData[muscleId].splice(index, 1);
                 renderExerciseArea(muscleId);
                 updateSessionVolume();
             }
         }
 
         function toggleLock(muscleId, index) {
-            const exercise = todayExercises[muscleId][index];
+            const exercise = currentSessionData[muscleId][index];
             exercise.locked = !exercise.locked;
 
             if (!lockedExercises[muscleId]) {
@@ -1398,41 +1497,46 @@
 
             if (exercise.locked) {
                 const existingIndex = lockedExercises[muscleId].findIndex(ex => ex.id === exercise.id);
+                const exerciseToSave = JSON.parse(JSON.stringify(exercise));
+                
                 if (existingIndex >= 0) {
-                    lockedExercises[muscleId][existingIndex] = JSON.parse(JSON.stringify(exercise));
+                    lockedExercises[muscleId][existingIndex] = exerciseToSave;
                 } else {
-                    lockedExercises[muscleId].push(JSON.parse(JSON.stringify(exercise)));
+                    lockedExercises[muscleId].push(exerciseToSave);
                 }
             } else {
                 lockedExercises[muscleId] = lockedExercises[muscleId].filter(ex => ex.id !== exercise.id);
             }
 
             saveLockedExercises();
-            saveTodayExercises();
             renderExerciseArea(muscleId);
         }
 
         function addSet(muscleId, exerciseIndex) {
-            todayExercises[muscleId][exerciseIndex].sets.push({ weight: '', reps: '' });
-            saveTodayExercises();
+            currentSessionData[muscleId][exerciseIndex].sets.push({ weight: '', reps: '' });
+            activeMusclesThisSession.add(muscleId);
             renderExerciseArea(muscleId);
         }
 
         function deleteSet(muscleId, exerciseIndex, setIndex) {
-            if (todayExercises[muscleId][exerciseIndex].sets.length > 1) {
-                todayExercises[muscleId][exerciseIndex].sets.splice(setIndex, 1);
-                saveTodayExercises();
+            if (currentSessionData[muscleId][exerciseIndex].sets.length > 1) {
+                currentSessionData[muscleId][exerciseIndex].sets.splice(setIndex, 1);
                 renderExerciseArea(muscleId);
                 updateSessionVolume();
             }
         }
 
         function updateSet(muscleId, exerciseIndex, setIndex, field, value) {
-            todayExercises[muscleId][exerciseIndex].sets[setIndex][field] = value;
-            saveTodayExercises();
+            currentSessionData[muscleId][exerciseIndex].sets[setIndex][field] = value;
+            
+            // Mark this muscle as active if data was entered
+            if (value) {
+                activeMusclesThisSession.add(muscleId);
+                renderMuscleGroups();
+            }
             
             // Update locked exercise if locked
-            const exercise = todayExercises[muscleId][exerciseIndex];
+            const exercise = currentSessionData[muscleId][exerciseIndex];
             if (exercise.locked && lockedExercises[muscleId]) {
                 const lockedIndex = lockedExercises[muscleId].findIndex(ex => ex.id === exercise.id);
                 if (lockedIndex >= 0) {
@@ -1441,17 +1545,18 @@
                 }
             }
             
-            // Refresh to update volume
-            renderExerciseArea(muscleId);
-            updateSessionVolume();
+            // Debounced refresh for volume
+            clearTimeout(window.volumeTimeout);
+            window.volumeTimeout = setTimeout(() => {
+                renderExerciseArea(muscleId);
+                updateSessionVolume();
+            }, 500);
         }
 
         function updateExerciseNotes(muscleId, exerciseIndex, notes) {
-            todayExercises[muscleId][exerciseIndex].notes = notes;
-            saveTodayExercises();
+            currentSessionData[muscleId][exerciseIndex].notes = notes;
             
-            // Update locked exercise if locked
-            const exercise = todayExercises[muscleId][exerciseIndex];
+            const exercise = currentSessionData[muscleId][exerciseIndex];
             if (exercise.locked && lockedExercises[muscleId]) {
                 const lockedIndex = lockedExercises[muscleId].findIndex(ex => ex.id === exercise.id);
                 if (lockedIndex >= 0) {
@@ -1461,21 +1566,24 @@
             }
         }
 
-        function updateWalking(muscleId) {
-            const minutes = document.getElementById('walkingMinutes').value;
-            if (!todayExercises[muscleId]) {
-                todayExercises[muscleId] = {};
+        function updateCardio(muscleId) {
+            const minutes = document.getElementById('cardioMinutes').value;
+            if (!currentSessionData[muscleId]) {
+                currentSessionData[muscleId] = {};
             }
-            todayExercises[muscleId].minutes = minutes;
-            saveTodayExercises();
+            currentSessionData[muscleId].minutes = minutes;
+            
+            if (minutes) {
+                activeMusclesThisSession.add(muscleId);
+                renderMuscleGroups();
+            }
         }
 
-        function updateWalkingNotes(muscleId, notes) {
-            if (!todayExercises[muscleId]) {
-                todayExercises[muscleId] = {};
+        function updateCardioNotes(muscleId, notes) {
+            if (!currentSessionData[muscleId]) {
+                currentSessionData[muscleId] = {};
             }
-            todayExercises[muscleId].notes = notes;
-            saveTodayExercises();
+            currentSessionData[muscleId].notes = notes;
         }
 
         // ==================== SESSION VOLUME ====================
@@ -1487,14 +1595,18 @@
                 return;
             }
 
-            const totalVolume = calculateTotalVolume(todayExercises);
+            let totalVolume = 0;
             let muscleVolumes = [];
 
-            Object.entries(todayExercises).forEach(([muscleId, data]) => {
+            // Only calculate for muscles with actual data
+            activeMusclesThisSession.forEach(muscleId => {
+                const data = currentSessionData[muscleId];
+                const muscle = getMuscleById(muscleId);
+                
                 if (Array.isArray(data) && data.length > 0) {
-                    const muscle = getMuscleById(muscleId);
                     const volume = calculateMuscleVolume(data);
                     if (volume > 0) {
+                        totalVolume += volume;
                         muscleVolumes.push({ name: muscle.name, icon: muscle.icon, volume });
                     }
                 }
@@ -1507,13 +1619,13 @@
 
             container.innerHTML = `
                 <div class="card">
-                    <div class="card-title">📊 Στατιστικά Προπόνησης</div>
+                    <div class="card-title">📊 Στατιστικά Σημερινής Προπόνησης</div>
                     <div class="total-volume-card" style="background: linear-gradient(135deg, #00b894, #00cec9);">
-                        <h3>🏆 Συνολικό Volume Προπόνησης</h3>
+                        <h3>🏆 Συνολικό Volume</h3>
                         <div class="big-number">${formatVolume(totalVolume)}</div>
                         <div class="unit">kg × επαναλήψεις</div>
                     </div>
-                    ${muscleVolumes.length > 0 ? `
+                    ${muscleVolumes.length > 1 ? `
                     <div class="stats-grid">
                         ${muscleVolumes.map(mv => `
                             <div class="stat-card">
@@ -1531,31 +1643,39 @@
         function saveWorkout() {
             const duration = document.getElementById('workoutDuration').value;
             
+            // Check only muscles that were actually worked this session
             let hasExercises = false;
             const muscleGroupsUsed = [];
+            const exercisesToSave = {};
 
-            Object.entries(todayExercises).forEach(([muscleId, data]) => {
+            activeMusclesThisSession.forEach(muscleId => {
+                const data = currentSessionData[muscleId];
                 const muscle = getMuscleById(muscleId);
+                
                 if (muscle.isCardio && data?.minutes) {
                     hasExercises = true;
                     muscleGroupsUsed.push(muscleId);
+                    exercisesToSave[muscleId] = { minutes: data.minutes, notes: data.notes || '' };
                 } else if (Array.isArray(data) && data.length > 0) {
-                    const hasData = data.some(ex => 
+                    // Only include exercises with actual data entered
+                    const exercisesWithData = data.filter(ex => 
                         ex.sets.some(set => set.weight || set.reps)
                     );
-                    if (hasData) {
+                    
+                    if (exercisesWithData.length > 0) {
                         hasExercises = true;
                         muscleGroupsUsed.push(muscleId);
+                        exercisesToSave[muscleId] = exercisesWithData;
                     }
                 }
             });
 
             if (!hasExercises) {
-                alert('Προσθέστε τουλάχιστον μία άσκηση!');
+                alert('Προσθέστε τουλάχιστον μία άσκηση με δεδομένα!');
                 return;
             }
 
-            const totalVolume = calculateTotalVolume(todayExercises);
+            const totalVolume = calculateTotalVolume(exercisesToSave);
 
             const workout = {
                 id: Date.now(),
@@ -1563,29 +1683,22 @@
                 timestamp: Date.now(),
                 duration: duration || 0,
                 muscles: muscleGroupsUsed,
-                exercises: JSON.parse(JSON.stringify(todayExercises)),
+                exercises: exercisesToSave,
                 totalVolume: totalVolume
             };
 
             workoutHistory.unshift(workout);
             localStorage.setItem('workoutHistory', JSON.stringify(workoutHistory));
 
-            // Clear today's non-locked exercises
-            Object.keys(todayExercises).forEach(muscleId => {
-                const muscle = getMuscleById(muscleId);
-                if (muscle.isCardio) {
-                    delete todayExercises[muscleId];
-                } else if (Array.isArray(todayExercises[muscleId])) {
-                    todayExercises[muscleId] = todayExercises[muscleId].filter(ex => ex.locked);
-                }
-            });
-            saveTodayExercises();
+            // Clear session data
+            currentSessionData = {};
+            activeMusclesThisSession.clear();
 
             document.getElementById('workoutDuration').value = '';
             currentMuscle = null;
             document.getElementById('exerciseArea').innerHTML = '';
+            document.getElementById('sessionVolume').innerHTML = '';
             renderMuscleGroups();
-            updateSessionVolume();
 
             alert('✅ Η προπόνηση αποθηκεύτηκε!');
             renderHistory();
@@ -1607,7 +1720,7 @@
                 <div class="history-item">
                     <div class="history-date">
                         <span>📅 ${workout.date}</span>
-                        <div>
+                        <div class="history-badges">
                             <span class="history-duration">⏱️ ${workout.duration || 0}'</span>
                             ${totalVolume > 0 ? `<span class="history-volume">📊 ${formatVolume(totalVolume)} kg</span>` : ''}
                         </div>
@@ -1695,13 +1808,13 @@
             Object.entries(workout.exercises).forEach(([muscleId, data]) => {
                 const muscle = getMuscleById(muscleId);
                 
-                if (muscle.isCardio && data?.minutes) {
+                if (muscle.isCardio) {
                     html += `
                         <div class="card" style="margin-top:15px;">
                             <div class="card-title">${muscle.icon} ${muscle.name}</div>
                             <div class="form-group">
                                 <label>Λεπτά</label>
-                                <input type="number" id="editCardio-${muscleId}" value="${data.minutes}">
+                                <input type="number" id="editCardio-${muscleId}" value="${data.minutes || ''}">
                             </div>
                             <div class="form-group">
                                 <label>Σχόλια</label>
@@ -1786,13 +1899,12 @@
                 }
             });
 
-            // Recalculate total volume
             workout.totalVolume = calculateTotalVolume(workout.exercises);
 
             localStorage.setItem('workoutHistory', JSON.stringify(workoutHistory));
             closeEditModal();
             renderHistory();
-            alert('✅ Αλλαγές αποθηκεύτηκαν!');
+            alert('✅ Οι αλλαγές αποθηκεύτηκαν!');
         }
 
         // ==================== CALENDAR ====================
@@ -1815,13 +1927,11 @@
 
             let html = days.map(d => `<div class="calendar-day-name">${d}</div>`).join('');
 
-            // Previous month days
             for (let i = firstDay - 1; i >= 0; i--) {
                 const day = daysInPrevMonth - i;
                 html += `<div class="calendar-day other-month">${day}</div>`;
             }
 
-            // Current month days
             for (let day = 1; day <= daysInMonth; day++) {
                 const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                 const isToday = dateStr === todayStr;
@@ -1831,7 +1941,6 @@
                              onclick="openDayModal('${dateStr}')">${day}</div>`;
             }
 
-            // Next month days
             const totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
             const remaining = totalCells - (firstDay + daysInMonth);
             for (let i = 1; i <= remaining; i++) {
@@ -1910,7 +2019,6 @@
             const container = document.getElementById('plannedWorkouts');
             const plans = Object.entries(calendarPlans).sort((a, b) => a[0].localeCompare(b[0]));
             
-            // Filter future plans
             const today = new Date().toISOString().split('T')[0];
             const futurePlans = plans.filter(([date]) => date >= today);
             
@@ -1924,9 +2032,9 @@
                 const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
                 return `
                     <div class="history-item" onclick="openDayModal('${date}')" style="cursor:pointer;">
-                        <div class="history-date">${formattedDate}</div>
-                        <p style="color:var(--primary); font-weight:600;">${plan.short || 'Χωρίς πρόγραμμα'}</p>
-                        ${plan.notes ? `<p style="color:var(--text-muted); margin-top:5px; font-size:0.9rem;">${plan.notes}</p>` : ''}
+                        <div class="history-date" style="margin-bottom:5px;">${formattedDate}</div>
+                        <p style="color:var(--primary); font-weight:600; font-size:1.1rem;">${plan.short || 'Χωρίς πρόγραμμα'}</p>
+                        ${plan.notes ? `<p style="color:var(--text-muted); margin-top:8px; font-size:0.95rem;">${plan.notes}</p>` : ''}
                     </div>
                 `;
             }).join('');
@@ -1940,7 +2048,6 @@
                 toggle.classList.toggle('active', settings[setting]);
             }
             localStorage.setItem('gymSettings', JSON.stringify(settings));
-            applySettings();
             
             if (setting === 'showVolume') {
                 if (currentMuscle) {
@@ -1992,8 +2099,8 @@
         }
 
         function clearAllData() {
-            if (confirm('⚠️ Διαγραφή ΟΛΩΝ των δεδομένων; Αυτή η ενέργεια δεν αναιρείται!')) {
-                if (confirm('Είστε σίγουροι;')) {
+            if (confirm('⚠️ Διαγραφή ΟΛΩΝ των δεδομένων;\n\nΑυτή η ενέργεια δεν αναιρείται!')) {
+                if (confirm('Είστε απόλυτα σίγουροι;')) {
                     localStorage.clear();
                     location.reload();
                 }
@@ -2001,10 +2108,6 @@
         }
 
         // ==================== STORAGE HELPERS ====================
-        function saveTodayExercises() {
-            localStorage.setItem('todayExercises', JSON.stringify(todayExercises));
-        }
-
         function saveLockedExercises() {
             localStorage.setItem('lockedExercises', JSON.stringify(lockedExercises));
         }

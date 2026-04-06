@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gym Tracker</title>
+    <title>💪 Gym Tracker Pro</title>
     <style>
         * {
             margin: 0;
@@ -13,22 +13,23 @@
         }
 
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #22c55e;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --bg: #0f172a;
-            --bg-card: #1e293b;
-            --bg-input: #334155;
-            --text: #f1f5f9;
-            --text-muted: #94a3b8;
-            --border: #475569;
-            --radius: 12px;
+            --primary: #6c5ce7;
+            --primary-dark: #5b4cdb;
+            --secondary: #00cec9;
+            --danger: #ff7675;
+            --warning: #fdcb6e;
+            --success: #00b894;
+            --dark: #2d3436;
+            --light: #dfe6e9;
+            --bg: #0a0a0f;
+            --card-bg: #16161f;
+            --text: #ffffff;
+            --text-muted: #a0a0a0;
+            --border-radius: 16px;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
@@ -36,53 +37,52 @@
         }
 
         .header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             padding: 20px;
             text-align: center;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
         .header h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.8rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .tabs {
             display: flex;
-            background: var(--bg-card);
-            padding: 8px;
-            gap: 4px;
-            overflow-x: auto;
-            border-bottom: 1px solid var(--border);
+            justify-content: center;
+            gap: 5px;
+            padding: 15px;
+            background: var(--card-bg);
+            flex-wrap: wrap;
         }
 
-        .tab {
-            flex: 1;
-            min-width: 80px;
-            padding: 12px 8px;
+        .tab-btn {
+            padding: 12px 20px;
             border: none;
             background: transparent;
             color: var(--text-muted);
-            font-size: 0.85rem;
-            font-weight: 500;
             cursor: pointer;
-            border-radius: var(--radius);
-            transition: all 0.2s;
-            white-space: nowrap;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
         }
 
-        .tab.active {
+        .tab-btn.active {
             background: var(--primary);
             color: white;
         }
 
+        .tab-btn:hover:not(.active) {
+            background: rgba(108, 92, 231, 0.2);
+        }
+
         .tab-content {
             display: none;
-            padding: 16px;
-            animation: fadeIn 0.3s ease;
+            padding: 20px;
+            animation: fadeIn 0.3s;
         }
 
         .tab-content.active {
@@ -96,75 +96,87 @@
 
         .muscle-groups {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 10px;
             margin-bottom: 20px;
         }
 
         .muscle-btn {
-            padding: 16px 8px;
-            border: 2px solid var(--border);
-            background: var(--bg-card);
-            color: var(--text);
-            border-radius: var(--radius);
-            font-size: 0.85rem;
-            font-weight: 600;
+            padding: 15px 10px;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            border-radius: var(--border-radius);
             cursor: pointer;
-            transition: all 0.2s;
+            font-size: 0.85rem;
+            transition: all 0.3s;
             text-align: center;
-        }
-
-        .muscle-btn:hover {
-            border-color: var(--primary);
-            transform: translateY(-2px);
         }
 
         .muscle-btn.active {
             background: var(--primary);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .muscle-btn:hover:not(.active) {
+            background: rgba(108, 92, 231, 0.2);
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
             border-color: var(--primary);
         }
 
-        .muscle-btn .icon {
-            font-size: 1.5rem;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .workout-section {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 16px;
-            margin-bottom: 16px;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
         .btn {
-            padding: 10px 20px;
+            padding: 12px 25px;
             border: none;
-            border-radius: var(--radius);
-            font-size: 0.9rem;
-            font-weight: 600;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.2s;
+            font-size: 1rem;
+            transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
         .btn-primary {
@@ -174,11 +186,11 @@
 
         .btn-primary:hover {
             background: var(--primary-dark);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
         }
 
-        .btn-secondary {
-            background: var(--secondary);
+        .btn-success {
+            background: var(--success);
             color: white;
         }
 
@@ -189,70 +201,40 @@
 
         .btn-warning {
             background: var(--warning);
-            color: black;
+            color: var(--dark);
         }
 
-        .btn-small {
-            padding: 6px 12px;
-            font-size: 0.8rem;
-        }
-
-        .btn-icon {
-            width: 36px;
-            height: 36px;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-
-        .input-group {
-            margin-bottom: 12px;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .input-group input, .input-group select, .input-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--border);
-            border-radius: var(--radius);
-            background: var(--bg-input);
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
             color: var(--text);
-            font-size: 1rem;
-            transition: border-color 0.2s;
         }
 
-        .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
-            outline: none;
-            border-color: var(--primary);
+        .btn-sm {
+            padding: 8px 15px;
+            font-size: 0.85rem;
         }
 
-        .exercise-card {
-            background: var(--bg);
-            border-radius: var(--radius);
-            padding: 16px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border);
+        .exercise-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary);
         }
 
         .exercise-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .exercise-name {
+            font-size: 1.1rem;
             font-weight: 600;
-            font-size: 1rem;
+            color: var(--secondary);
         }
 
         .exercise-actions {
@@ -260,127 +242,196 @@
             gap: 8px;
         }
 
+        .lock-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .lock-btn.locked {
+            background: var(--success);
+            color: white;
+        }
+
+        .lock-btn.unlocked {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-muted);
+        }
+
         .sets-container {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
 
         .set-row {
             display: grid;
-            grid-template-columns: 40px 1fr 1fr auto;
-            gap: 8px;
+            grid-template-columns: 50px 1fr 1fr auto;
+            gap: 10px;
             align-items: center;
-            background: var(--bg-input);
+            background: rgba(0,0,0,0.2);
             padding: 10px;
             border-radius: 8px;
         }
 
         .set-number {
-            font-weight: 700;
-            color: var(--primary);
-            text-align: center;
+            background: var(--primary);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
             font-size: 0.9rem;
         }
 
-        .set-row input {
+        .set-input {
             width: 100%;
-            padding: 8px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            background: var(--bg-card);
+            padding: 10px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
             color: var(--text);
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 1rem;
+        }
+
+        .set-input:focus {
+            border-color: var(--primary);
+            outline: none;
         }
 
         .add-set-btn {
             width: 100%;
             padding: 10px;
-            margin-top: 8px;
-            border: 2px dashed var(--border);
-            background: transparent;
-            color: var(--text-muted);
+            background: rgba(108, 92, 231, 0.2);
+            border: 2px dashed var(--primary);
             border-radius: 8px;
+            color: var(--primary);
             cursor: pointer;
-            transition: all 0.2s;
+            font-size: 0.9rem;
+            transition: all 0.3s;
         }
 
         .add-set-btn:hover {
-            border-color: var(--primary);
-            color: var(--primary);
+            background: rgba(108, 92, 231, 0.4);
         }
 
-        .history-card {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 16px;
-            margin-bottom: 12px;
-            border-left: 4px solid var(--primary);
+        .history-item {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .history-date {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-duration {
+            background: var(--primary);
+            padding: 5px 15px;
+            border-radius: 20px;
             font-size: 0.85rem;
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 8px;
         }
 
         .history-muscles {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 12px;
+            gap: 8px;
+            margin-bottom: 15px;
         }
 
         .muscle-tag {
-            background: var(--primary);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .history-details {
-            font-size: 0.9rem;
-            color: var(--text-muted);
+            background: rgba(108, 92, 231, 0.3);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: var(--primary);
         }
 
         .history-exercise {
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border);
+            background: rgba(255,255,255,0.05);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
         }
 
-        .history-exercise:last-child {
-            border-bottom: none;
-        }
-
-        .duration-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: var(--secondary);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.75rem;
+        .history-exercise-name {
             font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--warning);
+        }
+
+        .history-sets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .history-set {
+            background: rgba(0,0,0,0.3);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+        }
+
+        .calendar-container {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .calendar-nav button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
         }
 
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
-            margin-bottom: 20px;
+            gap: 5px;
         }
 
-        .calendar-header {
+        .calendar-day-name {
             text-align: center;
-            font-size: 0.75rem;
+            padding: 10px;
             color: var(--text-muted);
-            padding: 8px 0;
-            font-weight: 600;
+            font-size: 0.85rem;
         }
 
         .calendar-day {
@@ -389,96 +440,41 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: var(--bg-card);
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.2s;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.3s;
+            font-size: 0.9rem;
             position: relative;
         }
 
         .calendar-day:hover {
-            background: var(--bg-input);
+            background: rgba(108, 92, 231, 0.3);
         }
 
         .calendar-day.today {
-            border: 2px solid var(--primary);
+            border: 2px solid var(--secondary);
         }
 
-        .calendar-day.has-workout::after {
+        .calendar-day.has-plan {
+            background: rgba(108, 92, 231, 0.4);
+        }
+
+        .calendar-day.has-plan::after {
             content: '';
             width: 6px;
             height: 6px;
-            background: var(--secondary);
+            background: var(--success);
             border-radius: 50%;
             position: absolute;
-            bottom: 4px;
+            bottom: 5px;
         }
 
         .calendar-day.other-month {
             opacity: 0.3;
         }
 
-        .settings-card {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 16px;
-            margin-bottom: 12px;
-        }
-
-        .setting-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .setting-row:last-child {
-            border-bottom: none;
-        }
-
-        .setting-info h4 {
-            font-size: 0.95rem;
-            margin-bottom: 4px;
-        }
-
-        .setting-info p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .toggle {
-            width: 50px;
-            height: 26px;
-            background: var(--border);
-            border-radius: 13px;
-            position: relative;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .toggle.active {
-            background: var(--primary);
-        }
-
-        .toggle::after {
-            content: '';
-            width: 22px;
-            height: 22px;
-            background: white;
-            border-radius: 50%;
-            position: absolute;
-            top: 2px;
-            left: 2px;
-            transition: transform 0.2s;
-        }
-
-        .toggle.active::after {
-            transform: translateX(24px);
-        }
-
-        .modal {
+        .day-modal {
             display: none;
             position: fixed;
             top: 0;
@@ -486,22 +482,22 @@
             right: 0;
             bottom: 0;
             background: rgba(0,0,0,0.8);
-            z-index: 200;
+            z-index: 1000;
             align-items: center;
             justify-content: center;
             padding: 20px;
         }
 
-        .modal.active {
+        .day-modal.active {
             display: flex;
         }
 
         .modal-content {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 24px;
-            width: 100%;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
             max-width: 500px;
+            width: 100%;
             max-height: 80vh;
             overflow-y: auto;
         }
@@ -513,105 +509,83 @@
             margin-bottom: 20px;
         }
 
-        .modal-header h3 {
-            font-size: 1.2rem;
-        }
-
-        .close-modal {
-            background: none;
+        .modal-close {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
             border: none;
-            color: var(--text-muted);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .walking-input {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .walking-input input {
-            flex: 1;
-        }
-
-        .lock-btn {
-            background: var(--warning);
-            color: black;
-        }
-
-        .lock-btn.locked {
             background: var(--danger);
             color: white;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-muted);
-        }
-
-        .empty-state .icon {
-            font-size: 3rem;
-            margin-bottom: 12px;
-        }
-
-        .calendar-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .calendar-nav h3 {
-            font-size: 1.1rem;
-        }
-
-        .calendar-nav button {
-            background: var(--bg-input);
-            border: none;
-            color: var(--text);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
             cursor: pointer;
             font-size: 1.2rem;
         }
 
-        .day-plan-modal {
-            background: var(--bg);
-            border-radius: var(--radius);
-            padding: 16px;
-            margin-top: 12px;
+        .settings-section {
+            margin-bottom: 25px;
         }
 
-        .workout-summary {
-            background: var(--bg);
-            border-radius: var(--radius);
-            padding: 16px;
-            margin-top: 16px;
+        .settings-title {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        .summary-row {
+        .setting-item {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border);
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .color-picker {
+        .setting-label {
+            color: var(--text);
+        }
+
+        .toggle-switch {
+            width: 55px;
+            height: 28px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 14px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: var(--success);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(27px);
+        }
+
+        .color-options {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .color-option {
-            width: 36px;
-            height: 36px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             cursor: pointer;
             border: 3px solid transparent;
-            transition: transform 0.2s;
+            transition: transform 0.3s;
         }
 
         .color-option:hover {
@@ -622,822 +596,926 @@
             border-color: white;
         }
 
-        .quick-actions {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
         }
 
-        @media (max-width: 400px) {
-            .muscle-groups {
-                grid-template-columns: repeat(2, 1fr);
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        .workout-duration {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .duration-input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .duration-input {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .duration-input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .walking-input {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .walking-input input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            color: var(--text);
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .delete-set-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: none;
+            background: var(--danger);
+            color: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .quick-add {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .quick-add-btn {
+            padding: 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .quick-add-btn:hover {
+            background: rgba(108, 92, 231, 0.3);
+        }
+
+        @media (max-width: 600px) {
+            .set-row {
+                grid-template-columns: 40px 1fr 1fr auto;
+                gap: 5px;
             }
             
-            .set-row {
-                grid-template-columns: 30px 1fr 1fr auto;
-                gap: 4px;
+            .muscle-groups {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>💪 Gym Tracker</h1>
+        <h1>💪 Gym Tracker Pro</h1>
     </div>
 
     <div class="tabs">
-        <button class="tab active" data-tab="workout">Προπόνηση</button>
-        <button class="tab" data-tab="history">Ιστορικό</button>
-        <button class="tab" data-tab="calendar">Ημερολόγιο</button>
-        <button class="tab" data-tab="settings">Ρυθμίσεις</button>
+        <button class="tab-btn active" data-tab="workout">🏋️ Προπόνηση</button>
+        <button class="tab-btn" data-tab="history">📊 Ιστορικό</button>
+        <button class="tab-btn" data-tab="calendar">📅 Ημερολόγιο</button>
+        <button class="tab-btn" data-tab="settings">⚙️ Ρυθμίσεις</button>
     </div>
 
     <!-- WORKOUT TAB -->
     <div id="workout" class="tab-content active">
-        <div class="workout-section">
-            <div class="section-header">
-                <span class="section-title">📋 Επιλογή Μυϊκής Ομάδας</span>
-            </div>
-            <div class="muscle-groups">
-                <button class="muscle-btn" data-muscle="shoulders">
-                    <span class="icon">🏋️</span>
-                    Ώμοι
-                </button>
-                <button class="muscle-btn" data-muscle="legs">
-                    <span class="icon">🦵</span>
-                    Πόδια
-                </button>
-                <button class="muscle-btn" data-muscle="biceps">
-                    <span class="icon">💪</span>
-                    Δικέφαλα
-                </button>
-                <button class="muscle-btn" data-muscle="triceps">
-                    <span class="icon">💪</span>
-                    Τρικέφαλα
-                </button>
-                <button class="muscle-btn" data-muscle="back">
-                    <span class="icon">🔙</span>
-                    Πλάτη
-                </button>
-                <button class="muscle-btn" data-muscle="chest">
-                    <span class="icon">🫁</span>
-                    Στήθος
-                </button>
-                <button class="muscle-btn" data-muscle="abs">
-                    <span class="icon">🎯</span>
-                    Κοιλιακοί
-                </button>
-                <button class="muscle-btn" data-muscle="crossfit">
-                    <span class="icon">🔥</span>
-                    CrossFit
-                </button>
-                <button class="muscle-btn" data-muscle="walking">
-                    <span class="icon">🚶</span>
-                    Περπάτημα
-                </button>
-            </div>
-        </div>
-
-        <div id="exercise-area" class="workout-section" style="display: none;">
-            <div class="section-header">
-                <span class="section-title" id="current-muscle-title">Ασκήσεις</span>
-                <button class="btn btn-primary btn-small" id="add-exercise-btn">+ Άσκηση</button>
-            </div>
-            <div id="exercises-list"></div>
-            
-            <!-- Walking specific -->
-            <div id="walking-section" style="display: none;">
-                <div class="input-group">
-                    <label>Λεπτά περπατήματος</label>
-                    <div class="walking-input">
-                        <input type="number" id="walking-minutes" placeholder="π.χ. 30">
-                        <span>λεπτά</span>
-                    </div>
+        <div class="workout-duration">
+            <div class="form-group" style="margin-bottom:0;">
+                <label style="color:white;">⏱️ Διάρκεια Προπόνησης (λεπτά)</label>
+                <div class="duration-input-group">
+                    <input type="number" id="workoutDuration" class="duration-input" placeholder="π.χ. 60">
                 </div>
             </div>
         </div>
 
-        <div class="workout-section">
-            <div class="section-header">
-                <span class="section-title">⏱️ Χρόνος Προπόνησης</span>
-            </div>
-            <div class="input-group">
-                <label>Συνολική διάρκεια (λεπτά)</label>
-                <input type="number" id="workout-duration" placeholder="π.χ. 60">
+        <div class="card">
+            <div class="card-title">🎯 Επιλογή Μυϊκής Ομάδας</div>
+            <div class="muscle-groups">
+                <button class="muscle-btn" data-muscle="shoulders">💪 Ώμοι</button>
+                <button class="muscle-btn" data-muscle="chest">🫁 Στήθος</button>
+                <button class="muscle-btn" data-muscle="back">🔙 Πλάτη</button>
+                <button class="muscle-btn" data-muscle="biceps">💪 Δικέφαλα</button>
+                <button class="muscle-btn" data-muscle="triceps">💪 Τρικέφαλα</button>
+                <button class="muscle-btn" data-muscle="legs">🦵 Πόδια</button>
+                <button class="muscle-btn" data-muscle="crossfit">🔥 CrossFit</button>
+                <button class="muscle-btn" data-muscle="walking">🚶 Περπάτημα</button>
             </div>
         </div>
 
-        <div class="workout-section">
-            <div id="workout-summary" class="workout-summary" style="display: none;">
-                <h4 style="margin-bottom: 12px;">📊 Σύνοψη Προπόνησης</h4>
-                <div id="summary-content"></div>
-            </div>
-            <div style="display: flex; gap: 10px; margin-top: 16px;">
-                <button class="btn btn-secondary" id="save-workout" style="flex: 1;">
-                    💾 Αποθήκευση
-                </button>
-                <button class="btn btn-warning btn-icon lock-btn" id="lock-btn" title="Κλείδωμα">
-                    🔓
-                </button>
-            </div>
+        <div id="exerciseArea"></div>
+
+        <div style="text-align:center; margin-top:20px;">
+            <button class="btn btn-success" style="width:100%; padding:18px;" onclick="saveWorkout()">
+                💾 Αποθήκευση Προπόνησης
+            </button>
         </div>
     </div>
 
     <!-- HISTORY TAB -->
     <div id="history" class="tab-content">
-        <div class="quick-actions">
-            <button class="btn btn-small btn-primary" id="export-data">📤 Εξαγωγή</button>
-            <button class="btn btn-small btn-danger" id="clear-history">🗑️ Καθαρισμός</button>
-        </div>
-        <div id="history-list">
-            <div class="empty-state">
-                <div class="icon">📭</div>
-                <p>Δεν υπάρχει ιστορικό ακόμα</p>
-            </div>
+        <div class="card">
+            <div class="card-title">📊 Ιστορικό Προπονήσεων</div>
+            <div id="historyList"></div>
         </div>
     </div>
 
     <!-- CALENDAR TAB -->
     <div id="calendar" class="tab-content">
-        <div class="workout-section">
-            <div class="calendar-nav">
-                <button id="prev-month">‹</button>
-                <h3 id="calendar-month-title">Ιανουάριος 2025</h3>
-                <button id="next-month">›</button>
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button class="btn btn-secondary" onclick="changeMonth(-1)">◀</button>
+                <h2 id="calendarTitle"></h2>
+                <button class="btn btn-secondary" onclick="changeMonth(1)">▶</button>
             </div>
-            <div class="calendar-grid">
-                <div class="calendar-header">Κυ</div>
-                <div class="calendar-header">Δε</div>
-                <div class="calendar-header">Τρ</div>
-                <div class="calendar-header">Τε</div>
-                <div class="calendar-header">Πε</div>
-                <div class="calendar-header">Πα</div>
-                <div class="calendar-header">Σα</div>
-                <div id="calendar-days"></div>
-            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
         </div>
-        
-        <div id="day-plan-section" class="workout-section" style="display: none;">
-            <div class="section-header">
-                <span class="section-title" id="selected-date-title">Πλάνο Ημέρας</span>
-            </div>
-            <div class="input-group">
-                <label>Προπόνηση (συντομογραφία)</label>
-                <input type="text" id="day-plan-short" placeholder="π.χ. Ώμ+Στ">
-            </div>
-            <div class="input-group">
-                <label>Σχόλια</label>
-                <textarea id="day-plan-notes" rows="3" placeholder="Σημειώσεις..."></textarea>
-            </div>
-            <button class="btn btn-primary" id="save-day-plan">Αποθήκευση Πλάνου</button>
+        <div class="card" style="margin-top:20px;">
+            <div class="card-title">📋 Προγραμματισμένες Προπονήσεις</div>
+            <div id="plannedWorkouts"></div>
         </div>
     </div>
 
     <!-- SETTINGS TAB -->
     <div id="settings" class="tab-content">
-        <div class="settings-card">
-            <h3 style="margin-bottom: 16px;">🎨 Εμφάνιση</h3>
-            
-            <div class="setting-row">
-                <div class="setting-info">
-                    <h4>Χρώμα Θέματος</h4>
-                    <p>Επιλέξτε το κύριο χρώμα</p>
+        <div class="card">
+            <div class="settings-section">
+                <div class="settings-title">🎨 Εμφάνιση</div>
+                <div class="setting-item">
+                    <span class="setting-label">Σκούρο Θέμα</span>
+                    <div class="toggle-switch active" id="darkModeToggle" onclick="toggleSetting('darkMode')"></div>
+                </div>
+                <div class="setting-item">
+                    <span class="setting-label">Χρώμα Θέματος</span>
+                    <div class="color-options">
+                        <div class="color-option active" style="background:#6c5ce7;" data-color="#6c5ce7" onclick="changeColor('#6c5ce7')"></div>
+                        <div class="color-option" style="background:#00b894;" data-color="#00b894" onclick="changeColor('#00b894')"></div>
+                        <div class="color-option" style="background:#e17055;" data-color="#e17055" onclick="changeColor('#e17055')"></div>
+                        <div class="color-option" style="background:#0984e3;" data-color="#0984e3" onclick="changeColor('#0984e3')"></div>
+                    </div>
                 </div>
             </div>
-            <div class="color-picker" style="padding: 12px 0;">
-                <div class="color-option active" style="background: #6366f1;" data-color="#6366f1"></div>
-                <div class="color-option" style="background: #22c55e;" data-color="#22c55e"></div>
-                <div class="color-option" style="background: #ef4444;" data-color="#ef4444"></div>
-                <div class="color-option" style="background: #f59e0b;" data-color="#f59e0b"></div>
-                <div class="color-option" style="background: #ec4899;" data-color="#ec4899"></div>
-                <div class="color-option" style="background: #06b6d4;" data-color="#06b6d4"></div>
-            </div>
 
-            <div class="setting-row">
-                <div class="setting-info">
-                    <h4>Compact Mode</h4>
-                    <p>Μικρότερα στοιχεία</p>
+            <div class="settings-section">
+                <div class="settings-title">⚡ Λειτουργικότητα</div>
+                <div class="setting-item">
+                    <span class="setting-label">Αυτόματη Αποθήκευση</span>
+                    <div class="toggle-switch" id="autoSaveToggle" onclick="toggleSetting('autoSave')"></div>
                 </div>
-                <div class="toggle" id="toggle-compact"></div>
-            </div>
-
-            <div class="setting-row">
-                <div class="setting-info">
-                    <h4>Ήχοι</h4>
-                    <p>Ηχητικές ειδοποιήσεις</p>
+                <div class="setting-item">
+                    <span class="setting-label">Ειδοποιήσεις</span>
+                    <div class="toggle-switch active" id="notificationsToggle" onclick="toggleSetting('notifications')"></div>
                 </div>
-                <div class="toggle" id="toggle-sounds"></div>
-            </div>
-        </div>
-
-        <div class="settings-card">
-            <h3 style="margin-bottom: 16px;">⚙️ Λειτουργικότητα</h3>
-            
-            <div class="setting-row">
-                <div class="setting-info">
-                    <h4>Αυτόματη αποθήκευση</h4>
-                    <p>Αποθήκευση κατά την πληκτρολόγηση</p>
-                </div>
-                <div class="toggle active" id="toggle-autosave"></div>
             </div>
 
-            <div class="setting-row">
-                <div class="setting-info">
-                    <h4>Επιβεβαίωση διαγραφής</h4>
-                    <p>Ερώτηση πριν τη διαγραφή</p>
-                </div>
-                <div class="toggle active" id="toggle-confirm-delete"></div>
-            </div>
-
-            <div class="input-group" style="margin-top: 16px;">
-                <label>Προεπιλεγμένα σετ ανά άσκηση</label>
-                <select id="default-sets">
-                    <option value="3">3 σετ</option>
-                    <option value="4" selected>4 σετ</option>
-                    <option value="5">5 σετ</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="settings-card">
-            <h3 style="margin-bottom: 16px;">💾 Δεδομένα</h3>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <button class="btn btn-primary btn-small" id="backup-data">📦 Backup</button>
-                <button class="btn btn-secondary btn-small" id="restore-data">📥 Επαναφορά</button>
-                <button class="btn btn-danger btn-small" id="reset-all">🔄 Reset All</button>
+            <div class="settings-section">
+                <div class="settings-title">📦 Δεδομένα</div>
+                <button class="btn btn-warning" onclick="exportData()" style="width:100%; margin-bottom:10px;">
+                    📤 Εξαγωγή Δεδομένων
+                </button>
+                <button class="btn btn-danger" onclick="clearAllData()" style="width:100%;">
+                    🗑️ Διαγραφή Όλων
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL για προσθήκη άσκησης -->
-    <div class="modal" id="add-exercise-modal">
+    <!-- DAY MODAL -->
+    <div class="day-modal" id="dayModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Νέα Άσκηση</h3>
-                <button class="close-modal">&times;</button>
+                <h3 id="modalDate">📅 Ημερομηνία</h3>
+                <button class="modal-close" onclick="closeModal()">✕</button>
             </div>
-            <div class="input-group">
-                <label>Όνομα Άσκησης</label>
-                <input type="text" id="exercise-name-input" placeholder="π.χ. Bench Press">
+            <div class="form-group">
+                <label>Πρόγραμμα Προπόνησης (Συντομογραφίες)</label>
+                <input type="text" id="planShort" placeholder="π.χ. Ω+Σ, Π, ΔΙΚ+ΤΡΙΚ">
             </div>
-            <button class="btn btn-primary" id="confirm-add-exercise" style="width: 100%;">Προσθήκη</button>
+            <div class="form-group">
+                <label>Σχόλια / Σημειώσεις</label>
+                <textarea id="planNotes" rows="4" placeholder="Σημειώσεις για τη μέρα..."></textarea>
+            </div>
+            <div class="quick-add">
+                <button class="quick-add-btn" onclick="addQuickPlan('Ώ')">💪 Ώμοι</button>
+                <button class="quick-add-btn" onclick="addQuickPlan('Σ')">🫁 Στήθος</button>
+                <button class="quick-add-btn" onclick="addQuickPlan('Π')">🔙 Πλάτη</button>
+                <button class="quick-add-btn" onclick="addQuickPlan('ΔΙΚ')">💪 Δικέφαλα</button>
+                <button class="quick-add-btn" onclick="addQuickPlan('ΤΡΙΚ')">💪 Τρικέφαλα</button>
+                <button class="quick-add-btn" onclick="addQuickPlan('ΠΟΔ')">🦵 Πόδια</button>
+                <button class="quick-add-btn" onclick="addQuickPlan('CF')">🔥 CrossFit</button>
+                <button class="quick-add-btn" onclick="addQuickPlan('REST')">😴 Ξεκούραση</button>
+            </div>
+            <div style="margin-top:20px; display:flex; gap:10px;">
+                <button class="btn btn-success" style="flex:1;" onclick="savePlan()">💾 Αποθήκευση</button>
+                <button class="btn btn-danger" onclick="deletePlan()">🗑️</button>
+            </div>
         </div>
     </div>
 
-    <!-- MODAL για επεξεργασία ιστορικού -->
-    <div class="modal" id="edit-history-modal">
+    <!-- EDIT WORKOUT MODAL -->
+    <div class="day-modal" id="editModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Επεξεργασία Προπόνησης</h3>
-                <button class="close-modal">&times;</button>
+                <h3>✏️ Επεξεργασία Προπόνησης</h3>
+                <button class="modal-close" onclick="closeEditModal()">✕</button>
             </div>
-            <div id="edit-history-content"></div>
-            <div style="display: flex; gap: 10px; margin-top: 16px;">
-                <button class="btn btn-primary" id="save-history-edit" style="flex: 1;">Αποθήκευση</button>
-                <button class="btn btn-danger" id="delete-history-entry">Διαγραφή</button>
+            <div id="editContent"></div>
+            <div style="margin-top:20px;">
+                <button class="btn btn-success" style="width:100%;" onclick="saveEditedWorkout()">💾 Αποθήκευση Αλλαγών</button>
             </div>
         </div>
     </div>
-
-    <input type="file" id="restore-file-input" accept=".json" style="display: none;">
 
     <script>
-        // ==================== STATE ====================
-        let state = {
-            currentMuscle: null,
-            currentWorkout: {},
-            isLocked: false,
-            workoutHistory: [],
-            calendarPlans: {},
-            settings: {
-                primaryColor: '#6366f1',
-                compactMode: false,
-                sounds: false,
-                autoSave: true,
-                confirmDelete: true,
-                defaultSets: 4
-            },
-            currentCalendarDate: new Date(),
-            selectedCalendarDay: null,
-            editingHistoryIndex: null
+        // ==================== DATA STORAGE ====================
+        let lockedExercises = JSON.parse(localStorage.getItem('lockedExercises')) || {};
+        let todayExercises = JSON.parse(localStorage.getItem('todayExercises')) || {};
+        let workoutHistory = JSON.parse(localStorage.getItem('workoutHistory')) || [];
+        let calendarPlans = JSON.parse(localStorage.getItem('calendarPlans')) || {};
+        let settings = JSON.parse(localStorage.getItem('gymSettings')) || {
+            darkMode: true,
+            autoSave: false,
+            notifications: true,
+            primaryColor: '#6c5ce7'
         };
 
-        // Muscle translations
+        let currentMuscle = null;
+        let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
+        let selectedDate = null;
+        let editingWorkoutIndex = null;
+
         const muscleNames = {
             shoulders: 'Ώμοι',
-            legs: 'Πόδια',
+            chest: 'Στήθος',
+            back: 'Πλάτη',
             biceps: 'Δικέφαλα',
             triceps: 'Τρικέφαλα',
-            back: 'Πλάτη',
-            chest: 'Στήθος',
-            abs: 'Κοιλιακοί',
+            legs: 'Πόδια',
             crossfit: 'CrossFit',
             walking: 'Περπάτημα'
         };
 
-        const muscleShort = {
-            shoulders: 'Ώμ',
-            legs: 'Πδ',
-            biceps: 'Δκ',
-            triceps: 'Τκ',
-            back: 'Πλ',
-            chest: 'Στ',
-            abs: 'Κλ',
-            crossfit: 'CF',
+        const muscleIcons = {
+            shoulders: '💪',
+            chest: '🫁',
+            back: '🔙',
+            biceps: '💪',
+            triceps: '💪',
+            legs: '🦵',
+            crossfit: '🔥',
             walking: '🚶'
         };
 
         // ==================== INITIALIZATION ====================
         document.addEventListener('DOMContentLoaded', () => {
-            loadState();
             initTabs();
             initMuscleButtons();
-            initExerciseModal();
-            initLockButton();
-            initSaveWorkout();
-            initCalendar();
-            initSettings();
-            initHistory();
+            renderHistory();
+            renderCalendar();
             applySettings();
         });
 
-        function loadState() {
-            const saved = localStorage.getItem('gymTrackerState');
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                state.workoutHistory = parsed.workoutHistory || [];
-                state.calendarPlans = parsed.calendarPlans || {};
-                state.settings = { ...state.settings, ...parsed.settings };
-                state.currentWorkout = parsed.currentWorkout || {};
-            }
-        }
-
-        function saveState() {
-            localStorage.setItem('gymTrackerState', JSON.stringify({
-                workoutHistory: state.workoutHistory,
-                calendarPlans: state.calendarPlans,
-                settings: state.settings,
-                currentWorkout: state.currentWorkout
-            }));
-        }
-
-        // ==================== TABS ====================
         function initTabs() {
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
                     document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    tab.classList.add('active');
-                    document.getElementById(tab.dataset.tab).classList.add('active');
-                    
-                    if (tab.dataset.tab === 'history') {
-                        renderHistory();
-                    }
-                    if (tab.dataset.tab === 'calendar') {
-                        renderCalendar();
-                    }
+                    btn.classList.add('active');
+                    document.getElementById(btn.dataset.tab).classList.add('active');
                 });
             });
         }
 
-        // ==================== MUSCLE BUTTONS ====================
         function initMuscleButtons() {
             document.querySelectorAll('.muscle-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const muscle = btn.dataset.muscle;
                     
-                    // Toggle selection
-                    if (state.currentMuscle === muscle) {
-                        // Stay on same muscle, don't clear
-                        return;
+                    if (currentMuscle === muscle) {
+                        btn.classList.remove('active');
+                        currentMuscle = null;
+                        document.getElementById('exerciseArea').innerHTML = '';
+                    } else {
+                        document.querySelectorAll('.muscle-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        currentMuscle = muscle;
+                        renderExerciseArea(muscle);
                     }
-                    
-                    document.querySelectorAll('.muscle-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    state.currentMuscle = muscle;
-                    
-                    showExerciseArea(muscle);
                 });
             });
         }
 
-        function showExerciseArea(muscle) {
-            const area = document.getElementById('exercise-area');
-            const walkingSection = document.getElementById('walking-section');
-            const exercisesList = document.getElementById('exercises-list');
-            const addBtn = document.getElementById('add-exercise-btn');
-            
-            area.style.display = 'block';
-            document.getElementById('current-muscle-title').textContent = muscleNames[muscle];
+        // ==================== EXERCISE AREA ====================
+        function renderExerciseArea(muscle) {
+            const area = document.getElementById('exerciseArea');
             
             if (muscle === 'walking') {
-                walkingSection.style.display = 'block';
-                exercisesList.style.display = 'none';
-                addBtn.style.display = 'none';
-                
-                // Load saved walking minutes
-                const walkingData = state.currentWorkout[muscle];
-                if (walkingData && walkingData.minutes) {
-                    document.getElementById('walking-minutes').value = walkingData.minutes;
-                }
-            } else {
-                walkingSection.style.display = 'none';
-                exercisesList.style.display = 'block';
-                addBtn.style.display = 'inline-flex';
-                renderExercises(muscle);
-            }
-            
-            updateSummary();
-        }
-
-        // ==================== EXERCISES ====================
-        function initExerciseModal() {
-            const modal = document.getElementById('add-exercise-modal');
-            const closeBtn = modal.querySelector('.close-modal');
-            const confirmBtn = document.getElementById('confirm-add-exercise');
-            const nameInput = document.getElementById('exercise-name-input');
-            
-            document.getElementById('add-exercise-btn').addEventListener('click', () => {
-                if (state.isLocked) return alert('Η προπόνηση είναι κλειδωμένη!');
-                nameInput.value = '';
-                modal.classList.add('active');
-                nameInput.focus();
-            });
-            
-            closeBtn.addEventListener('click', () => modal.classList.remove('active'));
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) modal.classList.remove('active');
-            });
-            
-            confirmBtn.addEventListener('click', () => addExercise());
-            nameInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') addExercise();
-            });
-        }
-
-        function addExercise() {
-            const name = document.getElementById('exercise-name-input').value.trim();
-            if (!name || !state.currentMuscle) return;
-            
-            if (!state.currentWorkout[state.currentMuscle]) {
-                state.currentWorkout[state.currentMuscle] = { exercises: [] };
-            }
-            
-            const defaultSets = state.settings.defaultSets;
-            const sets = [];
-            for (let i = 0; i < defaultSets; i++) {
-                sets.push({ kg: '', reps: '' });
-            }
-            
-            state.currentWorkout[state.currentMuscle].exercises.push({
-                name,
-                sets
-            });
-            
-            document.getElementById('add-exercise-modal').classList.remove('active');
-            renderExercises(state.currentMuscle);
-            updateSummary();
-            
-            if (state.settings.autoSave) saveState();
-        }
-
-        function renderExercises(muscle) {
-            const container = document.getElementById('exercises-list');
-            const data = state.currentWorkout[muscle];
-            
-            if (!data || !data.exercises || data.exercises.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="icon">🏋️</div>
-                        <p>Πατήστε "+ Άσκηση" για να προσθέσετε</p>
+                area.innerHTML = `
+                    <div class="card">
+                        <div class="card-title">🚶 Περπάτημα</div>
+                        <div class="walking-input">
+                            <span>Λεπτά:</span>
+                            <input type="number" id="walkingMinutes" value="${todayExercises.walking?.minutes || ''}" 
+                                   placeholder="0" onchange="updateWalking()">
+                        </div>
                     </div>
                 `;
                 return;
             }
-            
-            container.innerHTML = data.exercises.map((ex, exIndex) => `
-                <div class="exercise-card" data-ex-index="${exIndex}">
+
+            // Initialize muscle group if not exists
+            if (!todayExercises[muscle]) {
+                todayExercises[muscle] = [];
+            }
+
+            // Add locked exercises if not already added
+            if (lockedExercises[muscle]) {
+                lockedExercises[muscle].forEach(locked => {
+                    const exists = todayExercises[muscle].some(ex => ex.id === locked.id);
+                    if (!exists) {
+                        todayExercises[muscle].push({
+                            ...locked,
+                            sets: locked.sets.map(s => ({...s}))
+                        });
+                    }
+                });
+            }
+
+            let html = `
+                <div class="card">
+                    <div class="card-title">${muscleIcons[muscle]} ${muscleNames[muscle]} - Ασκήσεις</div>
+                    <div id="exerciseList-${muscle}">
+                        ${renderExercises(muscle)}
+                    </div>
+                    <div class="form-group" style="margin-top:20px;">
+                        <label>➕ Προσθήκη Νέας Άσκησης</label>
+                        <div style="display:flex; gap:10px;">
+                            <input type="text" id="newExercise-${muscle}" placeholder="Όνομα άσκησης...">
+                            <button class="btn btn-primary" onclick="addExercise('${muscle}')">+</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            area.innerHTML = html;
+        }
+
+        function renderExercises(muscle) {
+            if (!todayExercises[muscle] || todayExercises[muscle].length === 0) {
+                return '<div class="empty-state"><div class="empty-state-icon">🏋️</div><p>Δεν υπάρχουν ασκήσεις. Προσθέστε μία!</p></div>';
+            }
+
+            return todayExercises[muscle].map((ex, index) => `
+                <div class="exercise-item" data-index="${index}">
                     <div class="exercise-header">
                         <span class="exercise-name">${ex.name}</span>
                         <div class="exercise-actions">
-                            <button class="btn btn-small btn-danger" onclick="deleteExercise(${exIndex})" ${state.isLocked ? 'disabled' : ''}>🗑️</button>
+                            <button class="lock-btn ${ex.locked ? 'locked' : 'unlocked'}" 
+                                    onclick="toggleLock('${muscle}', ${index})" 
+                                    title="${ex.locked ? 'Κλειδωμένο' : 'Ξεκλείδωτο'}">
+                                ${ex.locked ? '🔒' : '🔓'}
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteExercise('${muscle}', ${index})">🗑️</button>
                         </div>
                     </div>
                     <div class="sets-container">
                         ${ex.sets.map((set, setIndex) => `
                             <div class="set-row">
-                                <span class="set-number">${setIndex + 1}</span>
-                                <input type="number" placeholder="Κιλά" value="${set.kg}" 
-                                    onchange="updateSet(${exIndex}, ${setIndex}, 'kg', this.value)"
-                                    ${state.isLocked ? 'disabled' : ''}>
-                                <input type="number" placeholder="Επαν." value="${set.reps}"
-                                    onchange="updateSet(${exIndex}, ${setIndex}, 'reps', this.value)"
-                                    ${state.isLocked ? 'disabled' : ''}>
-                                <button class="btn btn-small btn-danger btn-icon" 
-                                    onclick="deleteSet(${exIndex}, ${setIndex})"
-                                    ${state.isLocked ? 'disabled' : ''} 
-                                    style="width: 28px; height: 28px; font-size: 0.7rem;">✕</button>
+                                <div class="set-number">${setIndex + 1}</div>
+                                <input type="number" class="set-input" placeholder="Κιλά" 
+                                       value="${set.weight || ''}"
+                                       onchange="updateSet('${muscle}', ${index}, ${setIndex}, 'weight', this.value)">
+                                <input type="number" class="set-input" placeholder="Επαν." 
+                                       value="${set.reps || ''}"
+                                       onchange="updateSet('${muscle}', ${index}, ${setIndex}, 'reps', this.value)">
+                                <button class="delete-set-btn" onclick="deleteSet('${muscle}', ${index}, ${setIndex})">✕</button>
                             </div>
                         `).join('')}
+                        <button class="add-set-btn" onclick="addSet('${muscle}', ${index})">+ Προσθήκη Σετ</button>
                     </div>
-                    <button class="add-set-btn" onclick="addSet(${exIndex})" ${state.isLocked ? 'disabled' : ''}>
-                        + Προσθήκη Σετ
-                    </button>
                 </div>
             `).join('');
         }
 
-        function updateSet(exIndex, setIndex, field, value) {
-            if (!state.currentWorkout[state.currentMuscle]) return;
-            state.currentWorkout[state.currentMuscle].exercises[exIndex].sets[setIndex][field] = value;
-            updateSummary();
-            if (state.settings.autoSave) saveState();
-        }
-
-        function addSet(exIndex) {
-            if (state.isLocked) return;
-            state.currentWorkout[state.currentMuscle].exercises[exIndex].sets.push({ kg: '', reps: '' });
-            renderExercises(state.currentMuscle);
-            if (state.settings.autoSave) saveState();
-        }
-
-        function deleteSet(exIndex, setIndex) {
-            if (state.isLocked) return;
-            if (state.settings.confirmDelete && !confirm('Διαγραφή σετ;')) return;
-            state.currentWorkout[state.currentMuscle].exercises[exIndex].sets.splice(setIndex, 1);
-            renderExercises(state.currentMuscle);
-            updateSummary();
-            if (state.settings.autoSave) saveState();
-        }
-
-        function deleteExercise(exIndex) {
-            if (state.isLocked) return;
-            if (state.settings.confirmDelete && !confirm('Διαγραφή άσκησης;')) return;
-            state.currentWorkout[state.currentMuscle].exercises.splice(exIndex, 1);
-            renderExercises(state.currentMuscle);
-            updateSummary();
-            if (state.settings.autoSave) saveState();
-        }
-
-        // ==================== WALKING ====================
-        document.getElementById('walking-minutes')?.addEventListener('change', function() {
-            if (!state.currentWorkout.walking) {
-                state.currentWorkout.walking = {};
-            }
-            state.currentWorkout.walking.minutes = this.value;
-            updateSummary();
-            if (state.settings.autoSave) saveState();
-        });
-
-        // ==================== LOCK ====================
-        function initLockButton() {
-            const btn = document.getElementById('lock-btn');
-            btn.addEventListener('click', () => {
-                state.isLocked = !state.isLocked;
-                btn.innerHTML = state.isLocked ? '🔒' : '🔓';
-                btn.classList.toggle('locked', state.isLocked);
-                
-                if (state.currentMuscle && state.currentMuscle !== 'walking') {
-                    renderExercises(state.currentMuscle);
-                }
-            });
-        }
-
-        // ==================== SUMMARY ====================
-        function updateSummary() {
-            const container = document.getElementById('workout-summary');
-            const content = document.getElementById('summary-content');
+        function addExercise(muscle) {
+            const input = document.getElementById(`newExercise-${muscle}`);
+            const name = input.value.trim();
             
-            const muscles = Object.keys(state.currentWorkout);
-            if (muscles.length === 0) {
-                container.style.display = 'none';
+            if (!name) {
+                alert('Παρακαλώ εισάγετε όνομα άσκησης!');
                 return;
             }
-            
-            container.style.display = 'block';
-            let html = '';
-            
-            muscles.forEach(muscle => {
-                const data = state.currentWorkout[muscle];
-                if (muscle === 'walking' && data.minutes) {
-                    html += `<div class="summary-row">
-                        <span>${muscleNames[muscle]}</span>
-                        <span>${data.minutes} λεπτά</span>
-                    </div>`;
-                } else if (data.exercises && data.exercises.length > 0) {
-                    const totalSets = data.exercises.reduce((sum, ex) => sum + ex.sets.filter(s => s.kg || s.reps).length, 0);
-                    html += `<div class="summary-row">
-                        <span>${muscleNames[muscle]}</span>
-                        <span>${data.exercises.length} ασκ. / ${totalSets} σετ</span>
-                    </div>`;
+
+            if (!todayExercises[muscle]) {
+                todayExercises[muscle] = [];
+            }
+
+            const newExercise = {
+                id: Date.now(),
+                name: name,
+                locked: false,
+                sets: [{ weight: '', reps: '' }]
+            };
+
+            todayExercises[muscle].push(newExercise);
+            saveTodayExercises();
+            renderExerciseArea(muscle);
+        }
+
+        function deleteExercise(muscle, index) {
+            if (confirm('Διαγραφή άσκησης;')) {
+                const exercise = todayExercises[muscle][index];
+                
+                // Remove from locked if exists
+                if (lockedExercises[muscle]) {
+                    lockedExercises[muscle] = lockedExercises[muscle].filter(ex => ex.id !== exercise.id);
+                    saveLockedExercises();
                 }
-            });
+
+                todayExercises[muscle].splice(index, 1);
+                saveTodayExercises();
+                renderExerciseArea(muscle);
+            }
+        }
+
+        function toggleLock(muscle, index) {
+            const exercise = todayExercises[muscle][index];
+            exercise.locked = !exercise.locked;
+
+            if (!lockedExercises[muscle]) {
+                lockedExercises[muscle] = [];
+            }
+
+            if (exercise.locked) {
+                // Add to locked
+                const existingIndex = lockedExercises[muscle].findIndex(ex => ex.id === exercise.id);
+                if (existingIndex >= 0) {
+                    lockedExercises[muscle][existingIndex] = {...exercise};
+                } else {
+                    lockedExercises[muscle].push({...exercise});
+                }
+            } else {
+                // Remove from locked
+                lockedExercises[muscle] = lockedExercises[muscle].filter(ex => ex.id !== exercise.id);
+            }
+
+            saveLockedExercises();
+            saveTodayExercises();
+            renderExerciseArea(muscle);
+        }
+
+        function addSet(muscle, exerciseIndex) {
+            todayExercises[muscle][exerciseIndex].sets.push({ weight: '', reps: '' });
+            saveTodayExercises();
+            renderExerciseArea(muscle);
+        }
+
+        function deleteSet(muscle, exerciseIndex, setIndex) {
+            if (todayExercises[muscle][exerciseIndex].sets.length > 1) {
+                todayExercises[muscle][exerciseIndex].sets.splice(setIndex, 1);
+                saveTodayExercises();
+                renderExerciseArea(muscle);
+            }
+        }
+
+        function updateSet(muscle, exerciseIndex, setIndex, field, value) {
+            todayExercises[muscle][exerciseIndex].sets[setIndex][field] = value;
+            saveTodayExercises();
             
-            content.innerHTML = html;
+            // Update locked exercise if locked
+            const exercise = todayExercises[muscle][exerciseIndex];
+            if (exercise.locked && lockedExercises[muscle]) {
+                const lockedIndex = lockedExercises[muscle].findIndex(ex => ex.id === exercise.id);
+                if (lockedIndex >= 0) {
+                    lockedExercises[muscle][lockedIndex] = {...exercise};
+                    saveLockedExercises();
+                }
+            }
+        }
+
+        function updateWalking() {
+            const minutes = document.getElementById('walkingMinutes').value;
+            todayExercises.walking = { minutes: minutes };
+            saveTodayExercises();
         }
 
         // ==================== SAVE WORKOUT ====================
-        function initSaveWorkout() {
-            document.getElementById('save-workout').addEventListener('click', saveWorkout);
-        }
-
         function saveWorkout() {
-            const duration = document.getElementById('workout-duration').value;
-            const muscles = Object.keys(state.currentWorkout);
+            const duration = document.getElementById('workoutDuration').value;
             
-            if (muscles.length === 0) {
-                alert('Δεν έχετε προσθέσει ασκήσεις!');
+            // Check if there's any exercise data
+            let hasExercises = false;
+            const muscleGroups = [];
+
+            Object.keys(todayExercises).forEach(muscle => {
+                if (muscle === 'walking' && todayExercises.walking?.minutes) {
+                    hasExercises = true;
+                    muscleGroups.push('walking');
+                } else if (Array.isArray(todayExercises[muscle]) && todayExercises[muscle].length > 0) {
+                    // Check if any exercise has data
+                    const hasData = todayExercises[muscle].some(ex => 
+                        ex.sets.some(set => set.weight || set.reps)
+                    );
+                    if (hasData) {
+                        hasExercises = true;
+                        muscleGroups.push(muscle);
+                    }
+                }
+            });
+
+            if (!hasExercises) {
+                alert('Προσθέστε τουλάχιστον μία άσκηση!');
                 return;
             }
-            
+
             const workout = {
-                date: new Date().toISOString(),
+                id: Date.now(),
+                date: new Date().toLocaleDateString('el-GR'),
+                timestamp: Date.now(),
                 duration: duration || 0,
-                muscles: { ...state.currentWorkout }
+                muscles: muscleGroups,
+                exercises: JSON.parse(JSON.stringify(todayExercises))
             };
-            
-            state.workoutHistory.unshift(workout);
-            saveState();
-            
-            // Reset
-            state.currentWorkout = {};
-            state.currentMuscle = null;
-            state.isLocked = false;
-            document.getElementById('lock-btn').innerHTML = '🔓';
-            document.getElementById('lock-btn').classList.remove('locked');
-            document.getElementById('workout-duration').value = '';
-            document.getElementById('exercise-area').style.display = 'none';
-            document.getElementById('workout-summary').style.display = 'none';
+
+            workoutHistory.unshift(workout);
+            localStorage.setItem('workoutHistory', JSON.stringify(workoutHistory));
+
+            // Clear today's non-locked exercises
+            Object.keys(todayExercises).forEach(muscle => {
+                if (muscle === 'walking') {
+                    delete todayExercises.walking;
+                } else if (Array.isArray(todayExercises[muscle])) {
+                    todayExercises[muscle] = todayExercises[muscle].filter(ex => ex.locked);
+                }
+            });
+            saveTodayExercises();
+
+            document.getElementById('workoutDuration').value = '';
             document.querySelectorAll('.muscle-btn').forEach(b => b.classList.remove('active'));
-            
+            currentMuscle = null;
+            document.getElementById('exerciseArea').innerHTML = '';
+
             alert('✅ Η προπόνηση αποθηκεύτηκε!');
+            renderHistory();
         }
 
         // ==================== HISTORY ====================
-        function initHistory() {
-            document.getElementById('clear-history').addEventListener('click', () => {
-                if (confirm('Διαγραφή όλου του ιστορικού;')) {
-                    state.workoutHistory = [];
-                    saveState();
-                    renderHistory();
-                }
-            });
-            
-            document.getElementById('export-data').addEventListener('click', exportData);
-            
-            // Edit modal
-            const modal = document.getElementById('edit-history-modal');
-            modal.querySelector('.close-modal').addEventListener('click', () => modal.classList.remove('active'));
-            document.getElementById('save-history-edit').addEventListener('click', saveHistoryEdit);
-            document.getElementById('delete-history-entry').addEventListener('click', deleteHistoryEntry);
-        }
-
         function renderHistory() {
-            const container = document.getElementById('history-list');
+            const container = document.getElementById('historyList');
             
-            if (state.workoutHistory.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="icon">📭</div>
-                        <p>Δεν υπάρχει ιστορικό ακόμα</p>
-                    </div>
-                `;
+            if (workoutHistory.length === 0) {
+                container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📊</div><p>Δεν υπάρχει ιστορικό προπονήσεων</p></div>';
                 return;
             }
-            
-            container.innerHTML = state.workoutHistory.map((workout, index) => {
-                const date = new Date(workout.date);
-                const dateStr = date.toLocaleDateString('el-GR', { 
-                    weekday: 'long', 
-                    day: 'numeric', 
-                    month: 'long',
-                    year: 'numeric'
-                });
-                
-                const muscles = Object.keys(workout.muscles);
-                
-                let details = '';
-                muscles.forEach(muscle => {
-                    const data = workout.muscles[muscle];
-                    if (muscle === 'walking' && data.minutes) {
-                        details += `<div class="history-exercise">🚶 Περπάτημα: ${data.minutes} λεπτά</div>`;
-                    } else if (data.exercises) {
-                        data.exercises.forEach(ex => {
-                            const setsInfo = ex.sets
-                                .filter(s => s.kg || s.reps)
-                                .map(s => `${s.kg || '?'}kg × ${s.reps || '?'}`)
-                                .join(', ');
-                            details += `<div class="history-exercise">
-                                <strong>${ex.name}</strong>: ${setsInfo || 'Χωρίς δεδομένα'}
+
+            container.innerHTML = workoutHistory.map((workout, index) => `
+                <div class="history-item">
+                    <div class="history-date">
+                        <span>📅 ${workout.date}</span>
+                        <span class="history-duration">⏱️ ${workout.duration || 0} λεπτά</span>
+                    </div>
+                    <div class="history-muscles">
+                        ${workout.muscles.map(m => `<span class="muscle-tag">${muscleIcons[m] || '💪'} ${muscleNames[m] || m}</span>`).join('')}
+                    </div>
+                    ${Object.entries(workout.exercises).map(([muscle, data]) => {
+                        if (muscle === 'walking' && data?.minutes) {
+                            return `<div class="history-exercise">
+                                <div class="history-exercise-name">🚶 Περπάτημα: ${data.minutes} λεπτά</div>
                             </div>`;
-                        });
-                    }
-                });
-                
-                return `
-                    <div class="history-card" onclick="editHistoryEntry(${index})">
-                        <div class="history-date">${dateStr}</div>
-                        ${workout.duration ? `<span class="duration-badge">⏱️ ${workout.duration} λεπτά</span>` : ''}
-                        <div class="history-muscles">
-                            ${muscles.map(m => `<span class="muscle-tag">${muscleNames[m]}</span>`).join('')}
+                        }
+                        if (!Array.isArray(data) || data.length === 0) return '';
+                        
+                        return data.map(ex => `
+                            <div class="history-exercise">
+                                <div class="history-exercise-name">${ex.name}</div>
+                                <div class="history-sets">
+                                    ${ex.sets.map((set, i) => `
+                                        <span class="history-set">Σετ ${i+1}: ${set.weight || '-'}kg × ${set.reps || '-'}</span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('');
+                    }).join('')}
+                    <div style="margin-top:15px; display:flex; gap:10px;">
+                        <button class="btn btn-primary btn-sm" onclick="editWorkout(${index})">✏️ Επεξεργασία</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteWorkout(${index})">🗑️ Διαγραφή</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function deleteWorkout(index) {
+            if (confirm('Διαγραφή προπόνησης;')) {
+                workoutHistory.splice(index, 1);
+                localStorage.setItem('workoutHistory', JSON.stringify(workoutHistory));
+                renderHistory();
+            }
+        }
+
+        function editWorkout(index) {
+            editingWorkoutIndex = index;
+            const workout = workoutHistory[index];
+            
+            let html = `
+                <div class="form-group">
+                    <label>⏱️ Διάρκεια (λεπτά)</label>
+                    <input type="number" id="editDuration" value="${workout.duration || 0}">
+                </div>
+            `;
+
+            Object.entries(workout.exercises).forEach(([muscle, data]) => {
+                if (muscle === 'walking' && data?.minutes) {
+                    html += `
+                        <div class="form-group">
+                            <label>🚶 Περπάτημα (λεπτά)</label>
+                            <input type="number" id="editWalking" value="${data.minutes}">
                         </div>
-                        <div class="history-details">${details}</div>
+                    `;
+                } else if (Array.isArray(data)) {
+                    data.forEach((ex, exIndex) => {
+                        html += `
+                            <div class="exercise-item">
+                                <div class="exercise-header">
+                                    <input type="text" value="${ex.name}" id="editExName-${muscle}-${exIndex}" style="background:transparent; border:none; color:var(--secondary); font-weight:600; font-size:1rem;">
+                                </div>
+                                <div class="sets-container">
+                                    ${ex.sets.map((set, setIndex) => `
+                                        <div class="set-row">
+                                            <div class="set-number">${setIndex + 1}</div>
+                                            <input type="number" class="set-input" placeholder="Κιλά" 
+                                                   value="${set.weight || ''}"
+                                                   id="editSet-${muscle}-${exIndex}-${setIndex}-weight">
+                                            <input type="number" class="set-input" placeholder="Επαν." 
+                                                   value="${set.reps || ''}"
+                                                   id="editSet-${muscle}-${exIndex}-${setIndex}-reps">
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+            });
+
+            document.getElementById('editContent').innerHTML = html;
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+            editingWorkoutIndex = null;
+        }
+
+        function saveEditedWorkout() {
+            if (editingWorkoutIndex === null) return;
+            
+            const workout = workoutHistory[editingWorkoutIndex];
+            workout.duration = document.getElementById('editDuration').value;
+
+            Object.entries(workout.exercises).forEach(([muscle, data]) => {
+                if (muscle === 'walking') {
+                    const walkingInput = document.getElementById('editWalking');
+                    if (walkingInput) {
+                        workout.exercises.walking = { minutes: walkingInput.value };
+                    }
+                } else if (Array.isArray(data)) {
+                    data.forEach((ex, exIndex) => {
+                        const nameInput = document.getElementById(`editExName-${muscle}-${exIndex}`);
+                        if (nameInput) {
+                            ex.name = nameInput.value;
+                        }
+                        ex.sets.forEach((set, setIndex) => {
+                            const weightInput = document.getElementById(`editSet-${muscle}-${exIndex}-${setIndex}-weight`);
+                            const repsInput = document.getElementById(`editSet-${muscle}-${exIndex}-${setIndex}-reps`);
+                            if (weightInput) set.weight = weightInput.value;
+                            if (repsInput) set.reps = repsInput.value;
+                        });
+                    });
+                }
+            });
+
+            localStorage.setItem('workoutHistory', JSON.stringify(workoutHistory));
+            closeEditModal();
+            renderHistory();
+            alert('✅ Αλλαγές αποθηκεύτηκαν!');
+        }
+
+        // ==================== CALENDAR ====================
+        function renderCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            const title = document.getElementById('calendarTitle');
+            
+            const months = ['Ιανουάριος', 'Φεβρουάριος', 'Μάρτιος', 'Απρίλιος', 'Μάιος', 'Ιούνιος', 
+                           'Ιούλιος', 'Αύγουστος', 'Σεπτέμβριος', 'Οκτώβριος', 'Νοέμβριος', 'Δεκέμβριος'];
+            const days = ['Κυρ', 'Δευ', 'Τρι', 'Τετ', 'Πεμ', 'Παρ', 'Σαβ'];
+            
+            title.textContent = `${months[currentMonth]} ${currentYear}`;
+
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
+            
+            const today = new Date();
+            const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+
+            let html = days.map(d => `<div class="calendar-day-name">${d}</div>`).join('');
+
+            // Previous month days
+            for (let i = firstDay - 1; i >= 0; i--) {
+                const day = daysInPrevMonth - i;
+                html += `<div class="calendar-day other-month">${day}</div>`;
+            }
+
+            // Current month days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                const isToday = dateStr === todayStr;
+                const hasPlan = calendarPlans[dateStr];
+                
+                html += `<div class="calendar-day ${isToday ? 'today' : ''} ${hasPlan ? 'has-plan' : ''}" 
+                             onclick="openDayModal('${dateStr}')">${day}</div>`;
+            }
+
+            // Next month days
+            const totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
+            const remaining = totalCells - (firstDay + daysInMonth);
+            for (let i = 1; i <= remaining; i++) {
+                html += `<div class="calendar-day other-month">${i}</div>`;
+            }
+
+            grid.innerHTML = html;
+            renderPlannedWorkouts();
+        }
+
+        function changeMonth(delta) {
+            currentMonth += delta;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            } else if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderCalendar();
+        }
+
+        function openDayModal(dateStr) {
+            selectedDate = dateStr;
+            const parts = dateStr.split('-');
+            const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+            
+            document.getElementById('modalDate').textContent = `📅 ${formattedDate}`;
+            
+            const plan = calendarPlans[dateStr] || {};
+            document.getElementById('planShort').value = plan.short || '';
+            document.getElementById('planNotes').value = plan.notes || '';
+            
+            document.getElementById('dayModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('dayModal').classList.remove('active');
+            selectedDate = null;
+        }
+
+        function addQuickPlan(text) {
+            const input = document.getElementById('planShort');
+            if (input.value && !input.value.endsWith('+') && !input.value.endsWith(' ')) {
+                input.value += ' + ';
+            }
+            input.value += text;
+        }
+
+        function savePlan() {
+            if (!selectedDate) return;
+            
+            const short = document.getElementById('planShort').value.trim();
+            const notes = document.getElementById('planNotes').value.trim();
+            
+            if (short || notes) {
+                calendarPlans[selectedDate] = { short, notes };
+            } else {
+                delete calendarPlans[selectedDate];
+            }
+            
+            localStorage.setItem('calendarPlans', JSON.stringify(calendarPlans));
+            closeModal();
+            renderCalendar();
+        }
+
+        function deletePlan() {
+            if (!selectedDate) return;
+            delete calendarPlans[selectedDate];
+            localStorage.setItem('calendarPlans', JSON.stringify(calendarPlans));
+            closeModal();
+            renderCalendar();
+        }
+
+        function renderPlannedWorkouts() {
+            const container = document.getElementById('plannedWorkouts');
+            const plans = Object.entries(calendarPlans).sort((a, b) => a[0].localeCompare(b[0]));
+            
+            if (plans.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>Δεν υπάρχουν προγραμματισμένες προπονήσεις</p></div>';
+                return;
+            }
+
+            container.innerHTML = plans.map(([date, plan]) => {
+                const parts = date.split('-');
+                const formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+                return `
+                    <div class="history-item" onclick="openDayModal('${date}')" style="cursor:pointer;">
+                        <div class="history-date">${formattedDate}</div>
+                        <p style="color:var(--primary); font-weight:600;">${plan.short || 'Χωρίς πρόγραμμα'}</p>
+                        ${plan.notes ? `<p style="color:var(--text-muted); margin-top:5px; font-size:0.9rem;">${plan.notes}</p>` : ''}
                     </div>
                 `;
             }).join('');
         }
 
-        function editHistoryEntry(index) {
-            state.editingHistoryIndex = index;
-            const workout = state.workoutHistory[index];
-            const modal = document.getElementById('edit-history-modal');
-            const content = document.getElementById('edit-history-content');
-            
-            let html = `
-                <div class="input-group">
-                    <label>Διάρκεια (λεπτά)</label>
-                    <input type="number" id="edit-duration" value="${workout.duration || ''}">
-                </div>
-            `;
-            
-            Object.keys(workout.muscles).forEach(muscle => {
-                const data = workout.muscles[muscle];
-                html += `<h4 style="margin: 16px 0 8px;">${muscleNames[muscle]}</h4>`;
-                
-                if (muscle === 'walking') {
-                    html += `
-                        <div class="input-group">
-                            <label>Λεπτά περπατήματος</label>
-                            <input type="number" class="edit-walking-minutes" value="${data.minutes || ''}">
-                        </div>
-                    `;
-                } else if (data.exercises) {
-                    data.exercises.forEach((ex, exIdx) => {
-                        html += `<div style="background: var(--bg); padding: 12px; border-radius: 8px; margin-bottom: 8px;">
-                            <strong>${ex.name}</strong>`;
-                        ex.sets.forEach((set, setIdx) => {
-                            html += `
-                                <div style="display: flex; gap: 8px; margin-top: 8px;">
-                                    <span style="width: 30px; text-align: center;">Σ${setIdx + 1}</span>
-                                    <input type="number" placeholder="kg" value="${set.kg}" 
-                                        class="edit-set" data-muscle="${muscle}" data-ex="${exIdx}" data-set="${setIdx}" data-field="kg"
-                                        style="flex: 1; padding: 6px;">
-                                    <input type="number" placeholder="reps" value="${set.reps}"
-                                        class="edit-set" data-muscle="${muscle}" data-ex="${exIdx}" data-set="${setIdx}" data-field="reps"
-                                        style="flex: 1; padding: 6px;">
-                                </div>
-                            `;
-                        });
-                        html += `</div>`;
-                    });
-                }
-            });
-            
-            content.innerHTML = html;
-            modal.classList.add('active');
-        }
-
-        function saveHistoryEdit() {
-            const index = state.editingHistoryIndex;
-            const workout = state.workoutHistory[index];
-            
-            workout.duration = document.getElementById('edit-duration').value;
-            
-            const walkingInput = document.querySelector('.edit-walking-minutes');
-            if (walkingInput && workout.muscles.walking) {
-                workout.muscles.walking.minutes = walkingInput.value;
+        // ==================== SETTINGS ====================
+        function toggleSetting(setting) {
+            settings[setting] = !settings[setting];
+            const toggle = document.getElementById(`${setting}Toggle`);
+            if (toggle) {
+                toggle.classList.toggle('active', settings[setting]);
             }
-            
-            document.querySelectorAll('.edit-set').forEach(input => {
-                const { muscle, ex, set, field } = input.dataset;
-                if (workout.muscles[muscle]?.exercises?.[ex]?.sets?.[set]) {
-                    workout.muscles[muscle].exercises[ex].sets[set][field] = input.value;
-                }
-            });
-            
-            saveState();
-            document.getElementById('edit-history-modal').classList.remove('active');
-            renderHistory();
+            localStorage.setItem('gymSettings', JSON.stringify(settings));
+            applySettings();
         }
 
-        function deleteHistoryEntry() {
-            if (state.settings.confirmDelete && !confirm('Διαγραφή αυτής της προπόνησης;')) return;
-            state.workoutHistory.splice(state.editingHistoryIndex, 1);
-            saveState();
-            document.getElementById('edit-history-modal').classList.remove('active');
-            renderHistory();
+        function changeColor(color) {
+            settings.primaryColor = color;
+            document.querySelectorAll('.color-option').forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.color === color);
+            });
+            localStorage.setItem('gymSettings', JSON.stringify(settings));
+            applySettings();
+        }
+
+        function applySettings() {
+            document.documentElement.style.setProperty('--primary', settings.primaryColor);
+            
+            document.querySelectorAll('.toggle-switch').forEach(toggle => {
+                const settingName = toggle.id.replace('Toggle', '');
+                toggle.classList.toggle('active', settings[settingName]);
+            });
+
+            document.querySelectorAll('.color-option').forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.color === settings.primaryColor);
+            });
         }
 
         function exportData() {
-            const data = JSON.stringify({
-                workoutHistory: state.workoutHistory,
-                calendarPlans: state.calendarPlans,
-                settings: state.settings,
+            const data = {
+                lockedExercises,
+                workoutHistory,
+                calendarPlans,
+                settings,
                 exportDate: new Date().toISOString()
-            }, null, 2);
+            };
             
-            const blob = new Blob([data], { type: 'application/json' });
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -1445,216 +1523,22 @@
             a.click();
         }
 
-        // ==================== CALENDAR ====================
-        function initCalendar() {
-            document.getElementById('prev-month').addEventListener('click', () => {
-                state.currentCalendarDate.setMonth(state.currentCalendarDate.getMonth() - 1);
-                renderCalendar();
-            });
-            
-            document.getElementById('next-month').addEventListener('click', () => {
-                state.currentCalendarDate.setMonth(state.currentCalendarDate.getMonth() + 1);
-                renderCalendar();
-            });
-            
-            document.getElementById('save-day-plan').addEventListener('click', saveDayPlan);
-        }
-
-        function renderCalendar() {
-            const date = state.currentCalendarDate;
-            const year = date.getFullYear();
-            const month = date.getMonth();
-            
-            const monthNames = ['Ιανουάριος', 'Φεβρουάριος', 'Μάρτιος', 'Απρίλιος', 'Μάιος', 'Ιούνιος',
-                'Ιούλιος', 'Αύγουστος', 'Σεπτέμβριος', 'Οκτώβριος', 'Νοέμβριος', 'Δεκέμβριος'];
-            
-            document.getElementById('calendar-month-title').textContent = `${monthNames[month]} ${year}`;
-            
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const daysInPrevMonth = new Date(year, month, 0).getDate();
-            
-            const today = new Date();
-            const todayStr = today.toISOString().split('T')[0];
-            
-            let html = '';
-            
-            // Previous month days
-            for (let i = firstDay - 1; i >= 0; i--) {
-                const day = daysInPrevMonth - i;
-                html += `<div class="calendar-day other-month">${day}</div>`;
-            }
-            
-            // Current month days
-            for (let day = 1; day <= daysInMonth; day++) {
-                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const isToday = dateStr === todayStr;
-                const hasPlan = state.calendarPlans[dateStr];
-                const hasWorkout = state.workoutHistory.some(w => w.date.split('T')[0] === dateStr);
-                
-                html += `<div class="calendar-day ${isToday ? 'today' : ''} ${hasPlan || hasWorkout ? 'has-workout' : ''}"
-                    onclick="selectCalendarDay('${dateStr}')">${day}</div>`;
-            }
-            
-            // Next month days
-            const totalCells = Math.ceil((firstDay + daysInMonth) / 7) * 7;
-            const remainingDays = totalCells - (firstDay + daysInMonth);
-            for (let day = 1; day <= remainingDays; day++) {
-                html += `<div class="calendar-day other-month">${day}</div>`;
-            }
-            
-            document.getElementById('calendar-days').innerHTML = html;
-        }
-
-        function selectCalendarDay(dateStr) {
-            state.selectedCalendarDay = dateStr;
-            const section = document.getElementById('day-plan-section');
-            section.style.display = 'block';
-            
-            const date = new Date(dateStr);
-            document.getElementById('selected-date-title').textContent = 
-                date.toLocaleDateString('el-GR', { weekday: 'long', day: 'numeric', month: 'long' });
-            
-            const plan = state.calendarPlans[dateStr] || {};
-            document.getElementById('day-plan-short').value = plan.short || '';
-            document.getElementById('day-plan-notes').value = plan.notes || '';
-        }
-
-        function saveDayPlan() {
-            if (!state.selectedCalendarDay) return;
-            
-            state.calendarPlans[state.selectedCalendarDay] = {
-                short: document.getElementById('day-plan-short').value,
-                notes: document.getElementById('day-plan-notes').value
-            };
-            
-            saveState();
-            renderCalendar();
-            alert('✅ Το πλάνο αποθηκεύτηκε!');
-        }
-
-        // ==================== SETTINGS ====================
-        function initSettings() {
-            // Color picker
-            document.querySelectorAll('.color-option').forEach(opt => {
-                opt.addEventListener('click', () => {
-                    document.querySelectorAll('.color-option').forEach(o => o.classList.remove('active'));
-                    opt.classList.add('active');
-                    state.settings.primaryColor = opt.dataset.color;
-                    applySettings();
-                    saveState();
-                });
-            });
-            
-            // Toggles
-            document.getElementById('toggle-compact').addEventListener('click', function() {
-                this.classList.toggle('active');
-                state.settings.compactMode = this.classList.contains('active');
-                applySettings();
-                saveState();
-            });
-            
-            document.getElementById('toggle-sounds').addEventListener('click', function() {
-                this.classList.toggle('active');
-                state.settings.sounds = this.classList.contains('active');
-                saveState();
-            });
-            
-            document.getElementById('toggle-autosave').addEventListener('click', function() {
-                this.classList.toggle('active');
-                state.settings.autoSave = this.classList.contains('active');
-                saveState();
-            });
-            
-            document.getElementById('toggle-confirm-delete').addEventListener('click', function() {
-                this.classList.toggle('active');
-                state.settings.confirmDelete = this.classList.contains('active');
-                saveState();
-            });
-            
-            document.getElementById('default-sets').addEventListener('change', function() {
-                state.settings.defaultSets = parseInt(this.value);
-                saveState();
-            });
-            
-            // Data buttons
-            document.getElementById('backup-data').addEventListener('click', exportData);
-            
-            document.getElementById('restore-data').addEventListener('click', () => {
-                document.getElementById('restore-file-input').click();
-            });
-            
-            document.getElementById('restore-file-input').addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (!file) return;
-                
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    try {
-                        const data = JSON.parse(e.target.result);
-                        state.workoutHistory = data.workoutHistory || [];
-                        state.calendarPlans = data.calendarPlans || {};
-                        state.settings = { ...state.settings, ...data.settings };
-                        saveState();
-                        applySettings();
-                        alert('✅ Επαναφορά επιτυχής!');
-                    } catch (err) {
-                        alert('❌ Σφάλμα κατά την επαναφορά');
-                    }
-                };
-                reader.readAsText(file);
-            });
-            
-            document.getElementById('reset-all').addEventListener('click', () => {
-                if (confirm('⚠️ Διαγραφή ΟΛΩΝ των δεδομένων;')) {
-                    localStorage.removeItem('gymTrackerState');
+        function clearAllData() {
+            if (confirm('⚠️ Διαγραφή ΟΛΩΝ των δεδομένων; Αυτή η ενέργεια δεν αναιρείται!')) {
+                if (confirm('Είστε σίγουροι;')) {
+                    localStorage.clear();
                     location.reload();
                 }
-            });
-            
-            // Apply saved settings to UI
-            if (state.settings.compactMode) {
-                document.getElementById('toggle-compact').classList.add('active');
             }
-            if (state.settings.sounds) {
-                document.getElementById('toggle-sounds').classList.add('active');
-            }
-            if (state.settings.autoSave) {
-                document.getElementById('toggle-autosave').classList.add('active');
-            }
-            if (state.settings.confirmDelete) {
-                document.getElementById('toggle-confirm-delete').classList.add('active');
-            }
-            document.getElementById('default-sets').value = state.settings.defaultSets;
-            
-            document.querySelectorAll('.color-option').forEach(opt => {
-                if (opt.dataset.color === state.settings.primaryColor) {
-                    opt.classList.add('active');
-                } else {
-                    opt.classList.remove('active');
-                }
-            });
         }
 
-        function applySettings() {
-            document.documentElement.style.setProperty('--primary', state.settings.primaryColor);
-            
-            // Darken for hover
-            const darken = (hex, percent) => {
-                const num = parseInt(hex.slice(1), 16);
-                const amt = Math.round(2.55 * percent);
-                const R = Math.max((num >> 16) - amt, 0);
-                const G = Math.max((num >> 8 & 0x00FF) - amt, 0);
-                const B = Math.max((num & 0x0000FF) - amt, 0);
-                return `#${(1 << 24 | R << 16 | G << 8 | B).toString(16).slice(1)}`;
-            };
-            document.documentElement.style.setProperty('--primary-dark', darken(state.settings.primaryColor, 15));
-            
-            if (state.settings.compactMode) {
-                document.body.style.fontSize = '14px';
-            } else {
-                document.body.style.fontSize = '';
-            }
+        // ==================== STORAGE HELPERS ====================
+        function saveTodayExercises() {
+            localStorage.setItem('todayExercises', JSON.stringify(todayExercises));
+        }
+
+        function saveLockedExercises() {
+            localStorage.setItem('lockedExercises', JSON.stringify(lockedExercises));
         }
     </script>
 </body>
